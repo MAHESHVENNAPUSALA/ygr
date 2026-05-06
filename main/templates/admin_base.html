@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar - fixed on the left */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh; /* full viewport height */
+            width: 220px;
+            background: #092a49;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto; /* scroll sidebar if content overflows */
+        }
+
+        /* Logo */
+        .sidebar .logo {
+            text-align: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar .logo img {
+            width: auto;
+            height: 60px;
+            display: inline-block;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        /* Main content pushed right to avoid sidebar */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header - fixed at the top */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 220px; /* offset by sidebar width */
+            right: 0;
+            height: 80px;
+            background: #092a49;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1100;
+        }
+
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-left: 30%;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .user-info span {
+            color: #ffffff;
+        }
+
+        .header .user-info a {
+            padding: 6px 12px;
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Hamburger menu for mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 100%;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hamburger animation when active */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Content padding - add top margin to not go under fixed header */
+        .content {
+            padding: 20px;
+            margin-top: 80px; /* height of header */
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                transform: translateX(-100%);
+                z-index: 1000;
+                overflow-y: auto;
+                width: 220px;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .header {
+                left: 0;
+            }
+
+            .content {
+                margin-top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <a href="{% url 'admin_base' %}">
+                <img src="{% static 'images/logo1.png' %}" alt="logo" />
+            </a>
+        </div>
+        <a href="{% url 'home' %}">Website View</a>
+        <a href="{% url 'carousel_dashboard' %}">Carousel</a>
+        <a href="{% url 'admin_blog_list' %}">Blogs</a>
+        <a href="{% url 'admin_project_list' %}">Projects</a>
+        <a href="{% url 'team_dashboard' %}">Team & Events</a>
+        <a href="{% url 'admin_testimonial_list' %}">Testimonials</a>
+        <a href="{% url 'internship_dashboard' %}">Internship List</a>
+        <!-- <a href="{% url 'create_question_page' %}">Create Questions</a> -->
+        <a href="{% url 'view_questions' %}">View Questions</a>
+        <a href="{% url 'internship_users_dashboard' %}">Internship Applications</a>
+        <a href="{% url 'admin_vacancies' %}">Job Vacancies</a>
+       <a href="{% url 'job_applications_dashboard' %}">Job Applications</a>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="title">Website Dashboard</div>
+
+            <div class="user-info">
+                {% if admin %}
+    <span>{{ admin.name }} (ID: {{ admin.id }})</span>
+{% else %}
+    <span>Guest</span>
+{% endif %}
+
+                <a href="{% url 'admin_logout' %}">Logout</a>
+
+            </div>
+        </div>
+
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const hamburger = document.getElementById('hamburger');
+        const overlay = document.getElementById('overlay');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

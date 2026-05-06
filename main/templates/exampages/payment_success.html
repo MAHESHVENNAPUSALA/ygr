@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}"/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .success-image {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .success {
+            color: #28a745;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+            text-align: left;
+        }
+
+        ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .action-box {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+               background: linear-gradient(135deg, #0D3B6C, #095191);
+
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 8px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-login {
+            background: #28a745;
+        }
+
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Success Image -->
+    <img class="success-image"
+         alt="Payment Successful"
+         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIHJ4PSIxNSIgZmlsbD0iI2ZmZmZmZiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjYwIiByPSIzNSIgZmlsbD0iIzI4YTc0NSIvPjxwYXRoIGQ9Ik0yMzUgNjBsMTAgMTAgMjAtMjAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2IiBmaWxsPSJub25lIi8+PHRleHQgeD0iMjUwIiB5PSIxMzAiIGZvbnQtc2l6ZT0iMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMyOGE3NDUiPlBheW1lbnQgU3VjY2Vzc2Z1bDwvdGV4dD48L3N2Zz4=" />
+
+    <div class="content">
+        <p>
+            Thank you for applying for the internship. Your payment has been
+            successfully received.
+        </p>
+
+        <p><strong>You will receive the following benefits:</strong></p>
+
+        <ul>
+            <li>🎁 Offline course offer with up to <strong>50% discount</strong></li>
+            <li>🪪 Internship student <strong>ID card</strong></li>
+            <li>📜 <strong>Course Completion Certificate</strong></li>
+        </ul>
+
+        <p>
+            Please check your email regularly for further instructions and updates.
+        </p>
+ 
+        <div class="action-box">
+            <a href="/login/" class="btn btn-login">
+                Login to Your Account
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        For more details, please visit our Help Center.
+        <br><br>
+        <a href="https://ygrgobalitservices.com" class="btn">
+            Go to Website
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

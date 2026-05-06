@@ -1,0 +1,354 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Job Applications{% endblock %}
+{% block header_title %}Job Applications{% endblock %}
+
+{% block content %}
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1f2937;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+thead {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+tbody tr:hover {
+    background: #f1f5ff;
+    transition: 0.2s;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+    display: inline-block;
+}
+
+.btn-view {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn-view:hover {
+    background: #1d4ed8;
+}
+
+.btn-update {
+    background: #16a34a;
+    color: #fff;
+}
+
+.btn-update:hover {
+    background: #15803d;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    display: none;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #ffffff;
+    max-width: 560px;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: popup 0.25s ease;
+}
+
+@keyframes popup {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.modal-content .close {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+/* ================= FORM ================= */
+
+.modal-content label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.modal-content textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.modal-content button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background: #1d4ed8;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+    .modal-content {
+        margin: 10% 16px;
+        padding: 20px;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+<div class="dashboard-container">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Job Role</th>
+                    <th>Status</th>
+                    <th>Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app.first_name }} {{ app.last_name }}</td>
+                    <td>{{ app.email }}</td>
+                    <td>{{ app.phone }}</td>
+                    <td>{{ app.job_role }}</td>
+                    <td><strong>{{ app.get_status_display }}</strong></td>
+                    <td>{{ app.submitted_at|date:"d M Y H:i" }}</td>
+
+                    <td>
+                        <a href="{% url 'view_job_application' app.id %}" 
+                           class="btn btn-view"
+                           target="_blank">
+                            View
+                        </a>
+
+                        <button class="btn btn-update action-btn"
+                            data-id="{{ app.id }}"
+                            data-status="{{ app.status }}"
+                            data-interview-date="{{ app.interview_date|date:'Y-m-d' }}"
+                            data-interview-link="{{ app.interview_link }}"
+                            data-join-date="{{ app.join_date|date:'Y-m-d' }}"
+                            data-rejection="{{ app.rejection_message }}"
+                            data-note="{{ app.note|default_if_none:'' }}">
+                            Update
+                        </button>
+
+                        <form action="{% url 'delete_job_application' app.id %}" 
+                              method="POST"
+                              style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this application?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-delete">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" style="text-align:center;">
+                        No applications found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ================= POPUP ================= -->
+
+<div id="actionModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Update Application Status</h3>
+
+        <form id="actionForm">
+            {% csrf_token %}
+            <input type="hidden" name="app_id" id="app_id">
+
+            <label>Status</label>
+            <select name="status" id="status">
+                <option value="screening">Screening in Progress</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="assessment">Basic Test</option>
+                <option value="hr_interview">HR Interview</option>
+                <option value="technical_interview">Technical Interview</option>
+                <option value="documentation">Document Verification</option>
+                <option value="onboarding">Onboarding</option>
+                <option value="not_selected">Not Selected</option>
+            </select>
+
+            <label>Interview / Test Date</label>
+            <input type="date" name="interview_date" id="interview_date">
+
+            <label>Meeting / Test Link</label>
+            <input type="url" name="interview_link" id="interview_link">
+
+            <label>Joining Date</label>
+            <input type="date" name="join_date" id="join_date">
+
+            <label>Rejection Message</label>
+            <textarea name="rejection_message" id="rejection_message" placeholder="Rejection message"></textarea>
+
+            <label>Note</label>
+            <textarea name="note" id="note" placeholder="Any additional notes"></textarea>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// Open/close modal
+const modal = document.getElementById("actionModal");
+const closeBtn = modal.querySelector(".close");
+
+document.querySelectorAll(".action-btn").forEach(btn => {
+    btn.onclick = () => {
+        modal.style.display = "block";
+
+        document.getElementById("app_id").value = btn.dataset.id;
+        document.getElementById("status").value = btn.dataset.status;
+        document.getElementById("interview_date").value = btn.dataset.interviewDate || "";
+        document.getElementById("interview_link").value = btn.dataset.interviewLink || "";
+        document.getElementById("join_date").value = btn.dataset.joinDate || "";
+        document.getElementById("rejection_message").value = btn.dataset.rejection || "";
+        document.getElementById("note").value = btn.dataset.note || "";
+    };
+});
+
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+
+// AJAX submit with validation
+document.getElementById("actionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const date = document.getElementById("interview_date").value;
+    const link = document.getElementById("interview_link").value;
+
+    // Frontend validation (optional but recommended)
+    if(link && !date){
+        alert("Please select the date before entering the link.");
+        return;
+    }
+
+    fetch("{% url 'update_job_application_status' %}", {
+        method: "POST",
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+        body: new FormData(this)
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.success) location.reload();
+    });
+});
+</script>
+{% endblock %}

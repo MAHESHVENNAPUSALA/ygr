@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YGR Gobal IT Services | IT Company in KPHB Hyderabad</title>
+
+<link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+
+<meta name="description" content="YGR Gobal IT Services – IT company in KPHB Hyderabad offering software development, web development, mobile apps, IT training, and digital marketing services.">
+
+<meta name="keywords" content="IT Company, Software Development, Web Development, Mobile App Development, IT Training, Digital Marketing, KPHB Hyderabad, Hyderabad IT Company">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+/* Prevent horizontal overflow */
+body{
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+/* Floating Support Button */
+.support-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    background:#091c47;
+    color:#fff;
+    border-radius:50%;
+    font-size:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    z-index:9999;
+    transition:all 0.3s ease;
+}
+
+.support-btn:hover{
+    background:#0d2b7a;
+    transform:translateY(-3px);
+    color:#fff;
+}
+
+.support-btn i{
+    color:#fff;
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .support-btn{
+        width:48px;
+        height:48px;
+        font-size:22px;
+        bottom:90px;
+        right:15px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+{% include "home/carouselImages.html" %}
+{% include "home/about.html" %}
+{% include "home/service.html" %}
+{% include "home/why_choose_us.html" %}<br>
+{% include "home/testimonials.html" %}<br>
+{% include "home/company_stats.html" %}<br>
+{% include "home/gobal_presence.html" %}<br>
+
+{% include "footer.html" %}
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<h2>Student Dashboard</h2>
+
+<p>Total Course Fee: ₹{{ total }}</p>
+<p>Paid: ₹{{ paid }}</p>
+<p>Remaining: ₹{{ remaining }}</p>
+
+<!-- ✅ Progress Bar -->
+<div style="width: 300px; background: #ddd;">
+    <div style="width: {{ progress }}%; background: green; color:white;">
+        {{ progress }}%
+    </div>
+</div>
+
+<br>
+
+{% if total_emis %}
+<p>EMI Progress: {{ completed_emis }} / {{ total_emis }}</p>
+{% endif %}
+
+<hr>
+
+<h3>Payments</h3>
+
+<table border="1">
+<tr>
+    <th>EMI</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Invoice</th>
+</tr>
+
+{% for p in payments %}
+<tr>
+    <td>{{ p.emi_part|default:"Full" }}</td>
+    <td>₹{{ p.amount_paid }}</td>
+    <td>
+        {% if p.is_paid %}
+            Paid
+        {% else %}
+            Pending
+        {% endif %}
+    </td>
+    <td>
+        {% if p.is_paid %}
+            <a href="/invoice/{{ p.id }}/">Download</a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>

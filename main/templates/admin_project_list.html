@@ -1,0 +1,196 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin Project List{% endblock %}
+{% block header_title %}Admin Project List{% endblock %}
+
+{% block content %}
+
+<style>
+/* ===== Dashboard Container ===== */
+.dashboard-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.08);
+}
+
+/* Header section */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-header h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #092a49;
+}
+
+/* Add button */
+.btn-add {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-add:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #092a49;
+    color: white;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: #f5faff;
+}
+
+/* Action buttons */
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actions a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Edit button */
+.actions .edit {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.actions .edit:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Delete button */
+.actions .delete {
+    background: linear-gradient(135deg, #dc2626, #a71d2a);
+}
+
+.actions .delete:hover {
+    background: linear-gradient(135deg, #a71d2a, #7a141f);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 720px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+
+    tbody td {
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+        text-align: right;
+        font-size: 0.9rem;
+    }
+
+    tbody td:last-child {
+        text-align: center;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+
+    tbody td::before {
+        position: absolute;
+        top: 12px;
+        left: 15px;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: 600;
+        text-align: left;
+        font-size: 0.9rem;
+        color: #092a49;
+        content: attr(data-label);
+    }
+
+    .actions {
+        justify-content: center;
+    }
+}
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h3>Admin Project List</h3>
+        <a href="{% url 'project_add' %}" class="btn-add">+ Add New Project</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Time Taken</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td data-label="Name">{{ project.name }}</td>
+                <td data-label="Time Taken">{{ project.time_taken }}</td>
+                <td data-label="Actions" class="actions">
+                    <a href="{% url 'project_edit' project.id %}" class="edit">Edit</a>
+                    <a href="{% url 'project_delete' project.id %}" class="delete" onclick="return confirm('Are you sure?');">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="text-align:center; padding: 1rem; color: #666;">No projects found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

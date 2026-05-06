@@ -1,0 +1,330 @@
+{% load static %}
+
+<style>
+/* ================= GLOBAL FOOTER TYPOGRAPHY (MATCH SERVICES PAGE) ================= */
+.footer,
+.footer p,
+.footer a,
+.footer h2,
+.mobile-footer,
+.mobile-footer a {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* ================= DESKTOP FOOTER ================= */
+.footer {
+    position: relative;
+    margin-top: 45px;
+    padding-top: 10px;
+    background: #092a49;
+}
+
+.container {
+    max-width: 90%;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.footer .logo {
+    height: 100px;
+    width: auto;
+    display: block;
+    padding-bottom: 10px;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 80px;
+}
+
+/* SECTION WRAPPERS */
+.footer-contact,
+.footer-link,
+.footer-newsletter {
+    flex: 1;
+    max-width: 25%;
+    color: #ffffff;
+    margin-bottom: 45px;
+}
+
+/* HEADINGS */
+.footer .footer-contact h2,
+.footer .footer-link h2,
+.footer .footer-newsletter h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.footer .footer-contact h2::after,
+.footer .footer-link h2::after,
+.footer .footer-newsletter h2::after {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: #fbcc27;
+}
+
+/* TEXT & LINKS */
+.footer p {
+    color: #e6e6e6;
+    margin-bottom: 12px;
+}
+
+.footer a {
+    color: #e6e6e6;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: #fbcc27;
+}
+
+/* QUICK LINKS */
+.footer .footer-link a {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer .footer-link a::before {
+    content: "\f105";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+/* CONTACT ICONS */
+.footer-contact p i {
+    width: 25px;
+    font-size: 16px;
+}
+
+.fa-phone-alt {
+    transform: rotate(90deg);
+}
+
+/* SOCIAL ICONS */
+.footer-social {
+    margin-top: 20px;
+}
+
+.footer-social a i {
+    margin-right: 15px;
+    font-size: 18px;
+    color: #f0f2f3;
+    transition: 0.3s;
+}
+
+.footer-social a:hover i {
+    color: #fbcc27;
+}
+
+/* COPYRIGHT */
+.footer .copyright {
+    padding: 0 30px;
+}
+.footer .copyright .row {
+    padding: 25px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer .copyright p {
+    margin: 0;
+    color: #999999;
+}
+.footer .copyright p a {
+    color: #ffffff;
+}
+.footer .copyright p a:hover {
+    color: #fbcc27;
+}
+/* ================= SOCIAL MEDIA BRAND HOVER COLORS ================= */
+ 
+.footer-social a[href*="x.com"]:hover i {
+    color: #000000;
+}
+ 
+.footer-social a[href*="facebook.com"]:hover i {
+    color: #1877f2;
+}
+ 
+.footer-social a[href*="linkedin.com"]:hover i {
+    color: #0a66c2;
+}
+ 
+.footer-social a[href*="instagram.com"]:hover i {
+    color: #e1306c;
+}
+ 
+.footer-social a[href*="youtube.com"]:hover i {
+    color: #ff0000;
+}
+
+/* ================= MOBILE VISIBILITY ================= */
+@media (max-width: 767px) {
+    .footer {
+        display: none;
+    }
+}
+
+/* ================= MOBILE FOOTER ================= */
+.mobile-footer {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #092a49;
+    border-top: 1px solid #fbcc27;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 999;
+}
+
+.mobile-footer a {
+    text-align: center;
+    flex: 1;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.mobile-footer i {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+@media (max-width: 767px) {
+    .mobile-footer {
+        display: flex;
+    }
+}
+</style>
+
+<!-- ================= DESKTOP FOOTER HTML ================= -->
+<div class="footer">
+    <div class="container">
+        <a href="{% url 'home' %}">
+            <img class="logo" src="{% static 'images/logo1.png' %}" alt="YGR Global IT Services">
+        </a>
+
+        <div class="footer-row">
+
+            <!-- CONTACT -->
+            <div class="footer-contact">
+                <h2>Our Head Office</h2>
+                <p><i class="fa fa-map-marker-alt"></i>
+                    14st Floor, Manjeera Trinity Corporate, Unit No. 114,
+                    Next to Lulu Mall, Kukatpally Housing Board Colony,
+                    Hyderabad, Telangana 500072
+                </p>
+                <p><i class="fa fa-phone"></i>
+                    <a href="tel:+917794053340">+91 77940 53340</a>
+                </p>
+                <p><i class="fa fa-envelope"></i>
+                    <a href="mailto:info@ygrgobalitservices.com">info@ygrgobalitservices.com</a>
+                </p>
+
+                <div class="footer-social">
+                    <a href="https://x.com/ygrgobalit2024"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61568888033386"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/ygr-gobal-it-services-pvt-ltd/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/ygrgobalitservices/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@rrtalktrends"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- QUICK LINKS -->
+            <div class="footer-link">
+                <h2>Quick Links</h2>
+                <a href="{% url 'terms' %}">Terms of Use</a>
+                <a href="{% url 'privacy' %}">Privacy Policy</a>
+                <a href="{% url 'cookies' %}">Cookies</a>
+                <a href="{% url 'help' %}">Help</a>
+                <a href="{% url 'faqs' %}">FAQs</a>
+                <a href="{% url 'refund' %}">Refund Policy</a>
+                <a href="{% url 'shipping' %}">Shipping</a>
+            </div>
+
+            <!-- NAVIGATION -->
+            <div class="footer-link">
+                <h2>Navigation</h2>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'aboutus' %}">About Us</a>
+                <a href="{% url 'project_list' %}">Portfolio</a>
+                <a href="{% url 'careers' %}">Careers</a>
+                <a href="{% url 'blog_list' %}">Blog</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+            </div>
+
+            <!-- ABOUT -->
+            <div class="footer-newsletter">
+                <h2>YGR IT SERVICES</h2>
+                <p>
+                    YGR Gobal IT Services Pvt. Ltd. provides complete IT solutions including software,
+                    web & mobile app development, digital marketing, professional IT training,
+                    internships, and full stack courses.
+                    <br>
+                    <a href="{% url 'aboutus' %}" style="color:#fbcc27;">Read more</a>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- COPYRIGHT -->
+        <div class="container copyright" style="margin-top: 40px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        &copy; <a href="https://ygrgobalitservices.com">YGR Gobal IT Services</a>. All Rights Reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p>
+                        Designed by <a href="https://ygrgobalitservices.com">YGR Gobal IT Services Pvt. Ltd, 2023.</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- ================= MOBILE FOOTER ================= -->
+<div class="mobile-footer">
+    <a href="{% url 'home' %}">
+        <i class="fa fa-home"></i>
+    </a>
+
+    <a href="{% url 'blog_list' %}">
+        <i class="fa fa-blog"></i>
+    </a>
+    
+    <a href="#">
+        <i class="fa fa-search"></i>
+    </a>
+
+
+    <a href="{% url 'careers' %}">
+        <i class="fa fa-file-alt"></i>
+    </a>
+
+    <a href="#">
+        <i class="fa fa-shopping-cart"></i>
+    </a>
+</div>

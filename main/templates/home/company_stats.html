@@ -1,0 +1,156 @@
+<style>
+  .company-stats {
+    background: linear-gradient(135deg, #091c47, #0d2b7a);
+    color: #ffffff;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 35px 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .stat-number {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #ffffff;
+  }
+
+  .stat-label {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .company-stats .container-fluid {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .company-stats .col-md-6,
+    .company-stats .col-lg-3 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    .stat-card {
+      padding: 20px 10px;
+      border-radius: 14px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+    }
+
+    .company-stats h2 {
+      font-size: 1.6rem;
+    }
+
+    .company-stats p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<section class="company-stats py-5">
+  <div class="container-fluid px-5">
+
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color: #fff">Our Growth in Numbers</h2>
+      <p class="mt-2" style="color: #fff">
+        Numbers that reflect our experience, trust, and success.
+      </p>
+    </div>
+
+    <!-- STATS -->
+    <div class="row g-4 text-center">
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <h2 class="stat-number" data-count="97">0</h2>
+          <p class="stat-label">Happy Clients</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <h2 class="stat-number" data-count="98">0</h2>
+          <p class="stat-label">Projects Completed</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <h2 class="stat-number" data-count="5">0</h2>
+          <p class="stat-label">Years of Experience</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <h2 class="stat-number" data-count="4">0</h2>
+          <p class="stat-label">Countries Served</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ✅ COUNTER SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const counters = document.querySelectorAll('.stat-number');
+  let started = false;
+
+  function startCounter() {
+    counters.forEach(counter => {
+
+      const target = +counter.getAttribute('data-count');
+      let count = 0;
+
+      const duration = 1200; // animation speed
+      const increment = target / (duration / 16);
+
+      function updateCount() {
+        count += increment;
+
+        if (count < target) {
+          counter.innerText = Math.floor(count);
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.innerText = target >= 5 ? target + "+" : target;
+        }
+      }
+
+      updateCount();
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    const section = document.querySelector('.company-stats');
+    const sectionTop = section.getBoundingClientRect().top;
+    const screenHeight = window.innerHeight;
+
+    if (sectionTop < screenHeight - 100 && !started) {
+      startCounter();
+      started = true;
+    }
+  });
+
+});
+</script>

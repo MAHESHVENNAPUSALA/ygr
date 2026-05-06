@@ -1,0 +1,150 @@
+{% load static %}
+<style>
+/* ================= GLOBAL FONT ================= */
+.ygr-carousel,
+.ygr-carousel .carousel-inner,
+.ygr-carousel .carousel-item,
+.carousel-caption,
+.carousel-caption h2,
+.carousel-caption p {
+    font-family: 'Lato', sans-serif;
+}
+ .ygr-carousel {
+  position: relative;
+  z-index: 1;
+}
+
+
+.carousel-caption h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;  
+    font-weight: 600;
+    color: #ffffff;
+ 
+    animation: fadeInUp 1.2s ease-in-out;
+}
+
+.carousel-caption p {
+    font-size: 18px;  
+    color: #ffffff;
+    line-height: 1.6;
+ 
+}
+/* Carousel caption text with subtle black border for clarity */
+.carousel-caption h2,
+.carousel-caption p {
+    color: #ffffff; /* main text color */
+    -webkit-text-stroke: 0.2px rgba(0,0,0,0.7); /* subtle black border for webkit browsers */
+ 
+  
+    
+}
+
+/* ================= CAROUSEL CONTAINER ================= */
+.ygr-carousel,
+.ygr-carousel .carousel-inner,
+.ygr-carousel .carousel-item {
+  width: 100%;
+  position: relative;
+}
+ 
+.ygr-carousel .carousel-item {
+  height: 600px;  
+  overflow: hidden;
+}
+ 
+.ygr-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;  
+  object-position: center;
+  display: block;
+}
+ 
+
+/* Centered text */
+.carousel-caption {
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: auto;
+  z-index: 2;
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* Fade animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark overlay removed because captions are removed */
+
+/* Controls */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: brightness(0) invert(1); /* Make controls white */
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .ygr-carousel .carousel-item {
+    height: 250px; /* Reduce height on mobile */
+  }
+
+  .carousel-caption h2 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<div
+  id="ygrCarousel"
+  class="carousel slide carousel-fade ygr-carousel"
+  data-bs-ride="carousel"
+  data-bs-interval="4000"
+>
+<div class="carousel-inner">
+    {% for item in carousel_images %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img
+        src="{{ item.carouselImage.url }}"
+        class="d-block w-100"
+        alt="Carousel Image"
+      />
+
+    </div>
+    {% endfor %}
+</div>
+
+
+  <!-- Controls -->
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#ygrCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#ygrCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>

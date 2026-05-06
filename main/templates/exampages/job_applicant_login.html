@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Job Applicant Login | Internship Portal KPHB Hyderabad</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}"/>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      max-width: 100%;
+      overflow-x: hidden;
+      padding: 0;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 25px 20px;
+      border-radius: 10px;
+      max-width: 350px;
+      margin: 50px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .form-container img.logo1 {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #092A49;
+      font-size: 22px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      background-color: #092A49;
+      color: #fff;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+opacity: 0.95;    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .form-container p{
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .form-container p a {
+      color: #092A49;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .form-container p a:hover{
+ opacity: 0.95;   
+ color: #fbcc27; }
+
+    @media (max-width: 400px) {
+      .form-container {
+        margin: 20px 10px;
+        padding: 20px 15px;
+      }
+  .form-container p{
+      font-size: 16px; 
+    }
+      .form-container h2 {
+        font-size: 1.8rem;
+      }
+
+      input[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+{% include 'header.html' %}
+
+<div class="form-container">
+  <img src="{% static 'images/logo.png' %}" alt="logo" class="logo1">
+  <h2>Job Applicant Login</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="error">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+ <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="login_value" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Phone Number" required>
+    <input type="submit" style="   background: linear-gradient(135deg, #0D3B6C, #095191);
+" value="Login">
+  </form>
+
+
+
+  <p>Don't have an application? <a href="{% url 'vacancies' %}">Apply Now</a></p>
+</div>
+
+{% include 'footer.html' %}
+</body>
+</html>

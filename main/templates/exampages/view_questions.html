@@ -1,0 +1,376 @@
+{% extends "admin_base.html" %}
+{% load static %}
+
+{% block title %}Manage Questions{% endblock %}
+{% block header_title %}Manage Questions{% endblock %}
+
+{% block content %}
+
+<style>
+/* ===== WRAPPER ===== */
+.manage-wrapper {
+    padding: 30px;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    background: #fff;
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* ===== TITLE ===== */
+.container h2 {
+    text-align: center;
+    color: #0a2540;
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.top-bar select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.top-bar select:focus {
+    border-color: #1f3c88;
+    outline: none;
+}
+
+/* ===== ADD BUTTON (matches Testimonials style) ===== */
+.top-bar .add-btn {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.top-bar .add-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ===== QUESTIONS LIST ===== */
+.questions-wrapper {
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.questions-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+.questions-wrapper::-webkit-scrollbar-thumb {
+    background: #1e3a8a;
+    border-radius: 6px;
+}
+
+/* ===== QUESTION CARD ===== */
+.question-card {
+    background: #f9fafc;
+    border: 1px solid #ddd;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.question-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.question-card h4 {
+    margin: 0 0 10px;
+    color: #1f3c88;
+    font-size: 17px;
+}
+
+.options {
+    margin-left: 15px;
+    font-size: 15px;
+}
+
+.correct {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+/* ===== ACTIONS ===== */
+.actions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ===== EDIT BUTTON (matches Testimonials style) ===== */
+.edit-btn {
+    background: #007bff;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ===== DELETE BUTTON (matches Testimonials style) ===== */
+.delete-btn {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.delete-btn:hover {
+    background-color: #a71d2a;
+}
+
+/* ===== MODAL ===== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 520px;
+}
+
+.modal-content h3 {
+    text-align: center;
+    color: #1f3c88;
+    margin-bottom: 15px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.modal-content button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .top-bar {
+        flex-direction: column;
+    }
+}
+</style>
+
+<div class="manage-wrapper">
+    <div class="container">
+        <h2>Manage Questions</h2>
+
+        <div class="top-bar">
+            <select id="languageSelect">
+                <option value="">-- Select Topic --</option>
+                <option value="aptitude">Aptitude</option>
+                <option value="reasoning">Reasoning</option>
+                <option value="technical">Technical</option>
+            </select>
+            <a href="{% url 'create_question_page' %}" class="add-btn">➕ Add Question</a>
+        </div>
+
+        <div class="questions-wrapper">
+            <div id="questionsContainer">
+                <p style="text-align:center;color:#666;">
+                    Select a Topic to view questions.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="editModal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Edit Question</h3>
+        <input type="hidden" id="editId">
+
+        <input type="text" id="editQuestion" placeholder="Question">
+        <input type="text" id="editA" placeholder="Option A">
+        <input type="text" id="editB" placeholder="Option B">
+        <input type="text" id="editC" placeholder="Option C">
+        <input type="text" id="editD" placeholder="Option D">
+
+        <select id="editCorrect">
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+        </select>
+
+        <button onclick="saveEdit()">Save</button>
+        <button onclick="closeModal()" style="background:#6b7280;margin-left:6px;">Cancel</button>
+    </div>
+</div>
+
+<script>
+const languageSelect = document.getElementById("languageSelect");
+const questionsContainer = document.getElementById("questionsContainer");
+const modal = document.getElementById("editModal");
+const modalTitle = document.getElementById("modalTitle");
+let isAdding = false;
+
+languageSelect.addEventListener("change", loadQuestions);
+
+function loadQuestions() {
+    const lang = languageSelect.value;
+    if (!lang) {
+        questionsContainer.innerHTML = "<p style='text-align:center;'>Select a Topic.</p>";
+        return;
+    }
+
+    questionsContainer.innerHTML = "<p style='text-align:center;'>Loading...</p>";
+
+    fetch(`/get-questions/?language=${lang}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.questions.length) {
+                questionsContainer.innerHTML =
+                    "<p style='text-align:center;color:red;'>No questions found.</p>";
+                return;
+            }
+
+            let html = `<p><strong>Total Questions: ${data.questions.length}</strong></p>`;
+            data.questions.forEach((q, i) => {
+                html += `
+                <div class="question-card">
+                    <h4>Q${i+1}. ${q.question}</h4>
+                    <div class="options">
+                        <p>A) ${q.optionA}</p>
+                        <p>B) ${q.optionB}</p>
+                        <p>C) ${q.optionC}</p>
+                        <p>D) ${q.optionD}</p>
+                        <p class="correct">✅ Correct: ${q.correct.toUpperCase()}</p>
+                    </div>
+                    <div class="actions">
+                        <button class="edit-btn" onclick='openEdit(${JSON.stringify(q)})'>Edit</button>
+                        <button class="delete-btn" onclick='deleteQuestion(${q.id})'>Delete</button>
+                    </div>
+                </div>`;
+            });
+
+            questionsContainer.innerHTML = html;
+        });
+}
+
+function openEdit(q) {
+    isAdding = false;
+    modalTitle.textContent = "Edit Question";
+    editId.value = q.id;
+    editQuestion.value = q.question;
+    editA.value = q.optionA;
+    editB.value = q.optionB;
+    editC.value = q.optionC;
+    editD.value = q.optionD;
+    editCorrect.value = q.correct;
+    modal.style.display = "flex";
+}
+
+function openAddModal() {
+    if (!languageSelect.value) {
+        alert("Select Topic first!");
+        return;
+    }
+    isAdding = true;
+    modalTitle.textContent = "Add Question";
+    editId.value = "";
+    editQuestion.value = editA.value = editB.value = editC.value = editD.value = "";
+    editCorrect.value = "a";
+    modal.style.display = "flex";
+}
+
+function closeModal() {
+    modal.style.display = "none";
+}
+
+function saveEdit() {
+    const payload = {
+        language: languageSelect.value,
+        question: editQuestion.value,
+        optionA: editA.value,
+        optionB: editB.value,
+        optionC: editC.value,
+        optionD: editD.value,
+        correct: editCorrect.value
+    };
+
+    const url = isAdding
+        ? "/save-question/"
+        : `/update-question/${editId.value}/`;
+
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        closeModal();
+        loadQuestions();
+    });
+}
+
+function deleteQuestion(id) {
+    if (confirm("Delete this question?")) {
+        fetch(`/delete-question/${id}/`, { method: "DELETE" })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                loadQuestions();
+            });
+    }
+}
+</script>
+
+{% endblock %}

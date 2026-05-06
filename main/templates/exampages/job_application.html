@@ -1,0 +1,532 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply | Our Company</title>
+
+<link rel="icon" type="image/png" href="/static/images/logo.png"/>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    width:100%;
+    overflow-x:hidden;
+}
+
+.header-logo{
+    text-align:center;
+    padding:12px;
+}
+
+.header-logo img{
+    max-height:55px;
+}
+
+.form-container{
+    max-width:700px;
+    margin:40px auto;
+    background:#fff;
+    padding:70px 36px;
+    border-radius:14px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+h3{
+    text-align:center;
+    margin-bottom:6px;
+    color:#333;
+}
+
+#stepTitle{
+    text-align:center;
+    margin-bottom:22px;
+    color:#0D3B6C;
+    font-weight:600;
+}
+
+.form-step{display:none;}
+.form-step.active{display:block;}
+
+label{
+    display:block;
+    margin:10px 0 6px;
+    font-weight:500;
+    font-size:14px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+    font-size:14px;
+}
+
+.rows{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.rows div{
+    flex:1;
+    min-width:160px;
+}
+
+button{
+    margin-top:22px;
+    padding:12px 26px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.next-btn{
+    background:#0D3B6C;
+    color:#fff;
+        margin-top:10px;
+
+    float:right;
+    border-radius:10px;
+}
+
+.prev-btn{
+    background:#e5e7eb;
+    margin-top:10px;
+    margin-bottom:10px;
+        border-radius:10px;
+
+}
+
+.submit-btn{
+    width:100%;
+    background:#0D3B6C;
+    color:#fff;
+}
+/* ================= MOBILE CLEANUP ================= */
+@media (max-width: 768px) {
+
+    body {
+        background: #f4f6fb;
+    }
+
+    .form-container {
+        margin: 15px auto;
+        padding: 28px 18px;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    #stepTitle {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 14px;
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .rows {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .rows div {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        font-size: 15px;
+        padding: 14px;
+        margin-top: 14px;
+    }
+
+    .next-btn,
+    .prev-btn {
+        float: none;
+    }
+
+    .prev-btn {
+        background: #e5e7eb;
+    }
+
+    .submit-btn {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .header-logo img {
+        max-height: 45px;
+    }
+}
+
+/* ================= EXTRA SMALL PHONES ================= */
+@media (max-width: 480px) {
+
+    .form-container {
+        padding: 22px 18px;
+        margin-bottom: 40px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    #stepTitle {
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 13px;
+        padding: 11px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+{% include "header.html" %}
+<div class="form-container">
+
+    <div class="header-logo">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
+
+    <h3>Job Application Form</h3>
+
+    <form id="jobForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h4 id="stepTitle">Personal Details</h4>
+
+        <!-- PERSONAL -->
+        <div class="form-step active">
+
+            <div class="rows">
+                <div>
+                    <label>First Name *</label>
+                    <input type="text" name="first_name" required>
+                </div>
+                <div>
+                    <label>Last Name *</label>
+                    <input type="text" name="last_name" required>
+                </div>
+            </div>
+
+            <div class="rows">
+                <div>
+                    <label>Date of Birth *</label>
+                    <input type="date" name="dob" required>
+                </div>
+                <div>
+                    <label>Gender *</label>
+                    <select name="gender" required>
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Phone *</label>
+            <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10" required>
+
+            <label>Email *</label>
+            <input type="email" name="email" required>
+
+            <label>Current City *</label>
+            <input type="text" name="current_city" required>
+
+            <label>Current Address *</label>
+            <textarea name="current_address" rows="2" required></textarea>
+
+            <label>Permanent Address *</label>
+            <textarea name="permanent_address" rows="2" required></textarea>
+
+            <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- JOB -->
+        <div class="form-step">
+
+            <div class="rows">
+                <div>
+                    <label>Job Role Applying For *</label>
+                    <input type="text" name="job_role" value="{{ job.title }}" readonly>
+                </div>
+                <div>
+                    <label>Department *</label>
+                    <input type="text" name="department" required>
+                </div>
+            </div>
+
+            <div class="rows">
+                <div>
+                    <label>Employment Type *</label>
+                    <select name="employment_type" required>
+                        <option>Full Time</option>
+                        <option>Part Time</option>
+                        <option>Internship</option>
+                        <option>Contract</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Preferred Work Mode *</label>
+                    <select name="preferred_work_mode" required>
+                        <option>Work From Office</option>
+                        <option>Work From Home</option>
+                        <option>Hybrid</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Preferred Job Location *</label>
+            <input type="text" name="preferred_job_location" required>
+
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="form-step">
+
+            <label>Highest Qualification *</label>
+            <select name="highest_qualification" required>
+                <option value="">Select</option>
+             
+                <option>Diploma</option>
+                <option>Graduate</option>
+                <option>Post Graduate</option>
+                <option>PhD</option>
+            </select>
+
+            <label>College / University *</label>
+            <input type="text" name="college_university" required>
+
+            <div class="rows">
+                <div>
+                    <label>Passout Year *</label>
+                    <input type="number" name="passout_year" min="1950" required>
+                </div>
+                <div>
+                    <label>Course *</label>
+                    <input type="text" name="course" required>
+                </div>
+            </div>
+
+            <label>SSC Marks (%) *</label>
+            <input type="number" step="0.01" min="0" max="100" name="ssc_marks" required>
+
+            <label>Inter / Diploma Marks (%) *</label>
+            <input type="number" step="0.01" min="0" max="100" name="inter_diploma_marks" required>
+
+            <label>Higher Education Marks (%)</label>
+            <input type="number" step="0.01" min="0" max="100" name="higher_education_marks">
+
+            <label>Backlogs</label>
+            <input type="number" name="backlogs" min="0" value="0">
+
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="form-step">
+            <label>Primary Skills *</label>
+            <input type="text" name="primary_skills" required>
+
+            <label>Secondary Skills</label>
+            <input type="text" name="secondary_skills">
+
+            <label>Technical Skills *</label>
+            <textarea name="technical_skills" rows="2" required></textarea>
+
+            <label>Certifications</label>
+            <input type="text" name="certifications">
+
+            <label>Internship Details</label>
+            <textarea name="internship_details" rows="3"></textarea>
+
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="form-step">
+
+            <label>Candidate Type *</label>
+            <select name="candidate_type" id="candidate_type" required>
+                <option value="">Select</option>
+                <option>Fresher</option>
+                <option>Experienced</option>
+            </select>
+
+            <div id="experience_fields" style="display:none;">
+
+                <div class="rows">
+                    <div>
+                        <label>Total Experience (Years)</label>
+                        <input type="number" step="0.1" min="0" name="total_experience">
+                    </div>
+                    <div>
+                        <label>Relevant Experience (Years)</label>
+                        <input type="number" step="0.1" min="0" name="relevant_experience">
+                    </div>
+                </div>
+
+                <label>Current Company</label>
+                <input type="text" name="current_company">
+
+                <label>Current Designation</label>
+                <input type="text" name="current_designation">
+
+                <div class="rows">
+                    <div>
+                        <label>Current CTC (LPA)</label>
+                        <input type="number" step="0.01" name="current_ctc">
+                    </div>
+                    <div>
+                        <label>Expected CTC (LPA)</label>
+                        <input type="number" step="0.01" name="expected_ctc">
+                    </div>
+                </div>
+
+                <label>Notice Period (Days)</label>
+                <input type="number" min="0" max="180" name="notice_period">
+
+                <label>Reason for Job Change</label>
+                <textarea name="reason_for_job_change" rows="2"></textarea>
+
+            </div>
+
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="form-step">
+
+            <label>Upload Resume (PDF) *</label>
+            <input type="file" name="resume" accept=".pdf" required>
+
+            <label>Profile Photo *</label>
+            <input type="file" name="profile_photo" accept="image/*" required>
+
+<label>PAN Number</label>
+<input type="text" name="pan_number" maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" oninput="this.value = this.value.toUpperCase()">
+ 
+<label>Upload PAN Card Image *</label>
+<input type="file" name="pan_card_image" accept="image/*" required>
+ 
+<label>Aadhaar Number</label>
+<input type="text" name="aadhaar_number" maxlength="12" pattern="[0-9]{12}" inputmode="numeric">
+
+<label>Upload Aadhaar Card (Front) *</label>
+<input type="file" name="aadhaar_front_image" accept="image/*" required>
+ 
+<label>Upload Aadhaar Card (Back) *</label>
+<input type="file" name="aadhaar_back_image" accept="image/*" required>
+
+            <label>LinkedIn Profile</label>
+            <input type="url" name="linkedin">
+
+            <label>GitHub / Portfolio</label>
+            <input type="url" name="github">
+
+            <label>
+                <input type="checkbox" required style="width:18px;">
+                I hereby declare that the above information is true and correct to the best of my knowledge.
+            </label>
+
+            <button type="button" class="prev-btn">Previous</button>
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </div>
+
+    </form>
+</div>
+{% include "footer.html" %}
+<script>
+const steps = document.querySelectorAll(".form-step");
+const nextBtns = document.querySelectorAll(".next-btn");
+const prevBtns = document.querySelectorAll(".prev-btn");
+const stepTitle = document.getElementById("stepTitle");
+
+const titles = [
+    "Personal Details",
+    "Job Information",
+    "Education Background",
+    "Skills Overview",
+    "Experience Summary",
+    "Document Upload",
+    "Online Profiles"
+];
+
+let current = 0;
+
+nextBtns.forEach(btn => {
+    btn.onclick = () => {
+        const inputs = steps[current].querySelectorAll("input,select,textarea");
+        for(let i of inputs){
+            if(!i.checkValidity()){
+                i.reportValidity();
+                return;
+            }
+        }
+        current++;
+        update();
+    };
+});
+
+prevBtns.forEach(btn => {
+    btn.onclick = () => {
+        current--;
+        update();
+    };
+});
+
+function update(){
+    steps.forEach((s,i)=>s.classList.toggle("active",i===current));
+    stepTitle.innerText = titles[current];
+}
+
+document.getElementById("candidate_type").addEventListener("change", function(){
+    const exp = document.getElementById("experience_fields");
+    if(this.value==="Experienced"){
+        exp.style.display="block";
+    } else {
+        exp.style.display="none";
+    }
+});
+</script>
+
+</body>
+</html>

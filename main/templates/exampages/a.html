@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register for Internship</title>
+  <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: 30px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+        color: #092a49;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      .required {
+        color: red;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      input[type="file"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        background-color: #092a49;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #06426b;
+      }
+
+      .logo {
+        display: block;
+        margin: 0 auto 20px auto;
+        width: 120px;
+        height: auto;
+      }
+
+      /* Already registered message */
+      .already-registered {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .already-registered a {
+        color: #092a49;
+        text-decoration: none;
+        font-weight: bold;
+        margin-left: 5px;
+      }
+
+      .already-registered a:hover {
+        text-decoration: underline;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+
+        .form-container {
+          padding: 20px;
+          margin: 10px auto;
+        }
+
+        input[type="submit"] {
+          font-size: 14px;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="form-container">
+      <!-- Logo -->
+      <img src="{% static 'image/logo.jpg' %}" alt="logo" class="logo" />
+
+      <h2>Register for Internship</h2>
+      <p><strong>Selected Course:</strong> {{ course.title }}</p>
+
+      <form
+        id="registerForm"
+        method="POST"
+        enctype="multipart/form-data"
+        onsubmit="startPayment();"
+      >
+        {% csrf_token %}
+
+        <label>Name <span class="required">*</span></label>
+        <input type="text" name="name" required />
+
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" required />
+
+        <label>Phone <span class="required">*</span></label>
+        <input type="number" name="phone" />
+
+        <label>WhatsApp Number</label>
+        <input type="number" name="wphone" />
+
+        <label>College Name <span class="required">*</span></label>
+        <input type="text" name="clg_name" required />
+
+        <label>College Address</label>
+        <input type="text" name="clg_address" />
+
+        <label>Roll Number <span class="required">*</span></label>
+        <input type="text" name="roll_no" required />
+
+        <label>Branch</label>
+        <input type="text" name="branch" />
+
+        <label>Upload Photo</label>
+        <input type="file" name="photo" accept="image/*" />
+
+        <label>Upload Resume <span class="required">*</span></label>
+        <input type="file" name="resume" required />
+
+        <button
+          type="submit"
+            onclick="startPayment()"
+          style="
+            background-color: #092a49;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+          "
+        >
+          Pay ₹299 & Register
+        </button>
+      </form>
+
+      <!-- Already registered message -->
+      <!-- Already registered link -->
+      <div
+        class="already-registered"
+        style="text-align: center; margin-top: 15px; font-size: 15px"
+      >
+        Already registered? <a href="{% url 'login' %}">Login</a>
+      </div>
+    </div>
+
+    <script>
+      function startPayment() {
+       
+        const form = document.getElementById("registerForm");
+        const formData = new FormData(form);
+        const courseId = {{ course.id }};
+        fetch(`/register/${courseId}/`, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+          },
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error("Register failed");
+            return res.json();
+          })
+          .then(() => {
+            return fetch("/api/create-order/", { method: "POST" });
+          })
+          .then((res) => {
+            if (!res.ok) throw new Error("Order creation failed");
+            return res.json();
+          })
+          .then((order) => {
+            const options = {
+              key: order.key,
+              amount: order.amount,
+              currency: "INR",
+              order_id: order.order_id,
+              name: "Internship Registration",
+
+              prefill: {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                contact: formData.get("phone"),
+              },
+
+              handler: function (response) {
+                fetch("/api/verify-payment/", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(response),
+                })
+                  .then((res) => res.json())
+                  .then((result) => {
+                    if (result.status === "success") {
+                      alert("Payment Successful!");
+                      window.location.href = "/login/";
+                    } else {
+                      alert("Payment verification failed");
+                    }
+                  });
+              },
+
+              modal: {
+                ondismiss: function () {
+                  fetch("/api/delete-pending-user/", { method: "POST" });
+                  alert("Payment cancelled. Registration removed.");
+                },
+              },
+            };
+
+            new Razorpay(options).open();
+          })
+          .catch((err) => {
+            alert(err.message);
+            console.error(err);
+          });
+      }
+
+      setInterval((e) => {
+        e.preventDefault()
+        fetch("/api/payment-status/")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.paid) {
+              window.location.href = "/home/";
+            }
+          });
+      }, 3000);
+    </script>
+  </body>
+</html>

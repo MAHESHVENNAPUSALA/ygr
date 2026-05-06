@@ -1,0 +1,296 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Job Applications</title>
+<link rel="icon" type="image/png" href="{% static 'images/logo.png' %}"/>
+
+<style>
+/* ---------------- Reset & Base ---------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1f2937;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* ---------------- Top Bar ---------------- */
+.top-bar {
+    background: #092a49;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.top-bar img {
+    height: 42px;
+}
+
+.logout-btn {
+    background: #dc2626;
+    border: none;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #b91c1c;
+}
+
+/* ---------------- Page Container ---------------- */
+.page {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.page h2 {
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+/* ---------------- Application Card ---------------- */
+.application-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-left: 5px solid #2563eb;
+}
+
+.app-left p {
+    margin: 5px 0;
+}
+
+.app-right {
+    text-align: right;
+    min-width: 240px;
+}
+.app-right p{
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+/* ---------------- Status Badge ---------------- */
+.status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 30px;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+}
+
+/* Status colors */
+.status-screening {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.status-shortlisted {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-assessment {
+    background-color: #fff7ed;
+    color: #c2410c;
+}
+
+.status-hr_interview {
+    background-color: #ede9fe;
+    color: #5b21b6;
+}
+
+.status-technical_interview {
+    background-color: #fef3c7;
+    color: #78350f;
+}
+
+.status-documentation {
+    background-color: #f0f9ff;
+    color: #0c4a6e;
+}
+
+.status-onboarding {
+    background-color: #ecfdf5;
+    color: #065f46;
+}
+
+.status-not_selected {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Hover effect */
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ---------------- Action Buttons ---------------- */
+.action-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-test {
+    background: linear-gradient(135deg, #0d3b6c, #095191);
+}
+
+.btn-test:hover {
+    opacity: 0.95;
+}
+
+.btn-link {
+    background: linear-gradient(135deg, #0d3b6c, #095191);
+}
+
+.btn-link:hover {
+    opacity: 0.95;
+}
+
+/* ---------------- Note Message ---------------- */
+.app-note {
+    margin-top: 10px;
+    padding: 12px 16px;
+    background: #f0f4ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ---------------- Empty State ---------------- */
+.empty {
+    background: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 650px) {
+    .application-card {
+        flex-direction: column;
+    }
+    .app-right {
+        text-align: left;
+        margin-top: 15px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 12px;
+    }
+    .status-badge {
+        font-size: 12px;
+        padding: 5px 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <img src="{% static 'images/logo.png' %}" alt="Logo">
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</div>
+
+<div class="page">
+    <h2>My Job Applications</h2>
+
+    {% for app in applications %}
+    <div class="application-card">
+
+        <div class="app-left">
+            <h4>{{ app.job_role }}</h4>
+            <p><b>Department:</b> {{ app.department }}</p>
+            <p><b>Employment:</b> {{ app.employment_type }}</p>
+            <p><b>Applied On:</b> {{ app.submitted_at|date:"d M Y" }}</p>
+        </div>
+
+        <div class="app-right">
+            <span class="status-badge status-{{ app.status }}">{{ app.get_status_display }}</span>
+
+            {% if app.status == "screening" %}
+                <p>Your application is under review. Kindly check your email for HR updates.</p>
+
+            {% elif app.status == "shortlisted" %}
+                <p>Congratulations! You are shortlisted. HR will reach out via email shortly.</p>
+
+            {% elif app.status == "assessment" %}
+                <p>Online assessment details sent via email. {% if app.basic_test_date %}Scheduled on {{ app.basic_test_date }}.{% endif %}</p>
+                {% if app.test_link %}
+                    <a href="{{ app.test_link }}" class="action-btn btn-test" target="_blank">Start Assessment</a>
+                {% endif %}
+
+            {% elif app.status == "hr_interview" %}
+                <p>HR interview instructions sent via email. {% if app.interview_date %}Scheduled on {{ app.interview_date }}.{% endif %}</p>
+                {% if app.interview_link %}
+                    <a href="{{ app.interview_link }}" class="action-btn btn-link" target="_blank">Join HR Interview</a>
+                {% endif %}
+
+            {% elif app.status == "technical_interview" %}
+                <p>Technical interview info sent via email. {% if app.technical_round_date %}Scheduled on {{ app.technical_round_date }}.{% endif %}</p>
+                {% if app.technical_round_link %}
+                    <a href="{{ app.technical_round_link }}" class="action-btn btn-link" target="_blank">Join Technical Interview</a>
+                {% endif %}
+
+            {% elif app.status == "documentation" %}
+                <p>Document verification instructions sent via email. {% if app.document_verification_date %}Scheduled on {{ app.document_verification_date }}.{% endif %}</p>
+
+            {% elif app.status == "onboarding" %}
+                <p>Onboarding details sent via email. {% if app.join_date %}Joining on {{ app.join_date }}.{% endif %}</p>
+
+            {% elif app.status == "not_selected" %}
+                <p>We regret to inform you that your application was not selected. You may reapply after 90 days.</p>
+
+            {% else %}
+                <p>Check your email for updates regarding this application.</p>
+            {% endif %}
+
+            {% if app.note %}
+                <div class="app-note">
+                    <strong>Message:</strong> {{ app.note }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% empty %}
+        <div class="empty">No job applications found.</div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

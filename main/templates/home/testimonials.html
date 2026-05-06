@@ -1,0 +1,212 @@
+{% load static %}
+
+<style>
+/* ================= GLOBAL ================= */
+body {
+  overflow-x: hidden;
+}
+
+.testimonials-section {
+  padding: 30px 0;
+  background: #f9fafb;
+  font-family: 'Lato', sans-serif;
+}
+
+/* ================= SCROLL CONTAINER ================= */
+.testimonial-marquee {
+  display: flex;
+  overflow: hidden;
+  gap: 20px;
+  width: 100%;
+  padding: 15px 0;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 20px;
+  min-width: 100%;
+  flex-shrink: 0;
+  align-items: stretch;
+  animation: marquee 35s linear infinite;
+}
+
+.testimonial-marquee:hover .testimonial-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - 20px)); }
+}
+
+/* ================= CARD ================= */
+.testimonial-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+
+  width: 350px;
+  flex: 0 0 auto;
+  min-height: 220px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CLIENT NAME (ONLY CENTERED) */
+.testimonial-card h6 {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  color: #0d2b7a;
+  margin-bottom: 12px;
+}
+
+/* MESSAGE */
+.testimonial-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #343a40;
+  word-wrap: break-word;
+}
+
+/* COMPANY & COUNTRY */
+.client-info {
+  margin-top: auto;
+  padding-top: 14px;
+  text-align: left;
+}
+
+.client-info p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color: #0d2b7a;
+  font-weight: 600;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  .testimonials-section {
+    padding: 20px 0;
+    padding: 10px;
+  }
+
+  .container-fluid {
+    padding-left: 12px  ;
+    padding-right: 12px  ;
+  }
+
+  /* Scroll container */
+  .testimonial-marquee {
+    gap: 15px;
+    padding: 10px 0;
+  }
+
+  .testimonial-track {
+    gap: 15px;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - 15px)); }
+  }
+
+  /* One perfect card per view */
+  .testimonial-card {
+    width: 280px;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  /* Client name */
+  .testimonial-card h6 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  /* Message text */
+  .testimonial-text {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  /* Company & country */
+  .client-info {
+    margin-top: 12px;
+  }
+
+ 
+  /* Section heading */
+  .testimonials-section h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .testimonials-scroll p {
+    font-size: 16px;
+       text-align: left;
+  }
+}
+
+</style>
+
+<section class="testimonials-section">
+  <div class="container-fluid px-5">
+
+    <div class="text-center mb-5">
+      <h2>What Our Clients Say</h2>
+      <p>Trusted by clients worldwide</p>
+    </div>
+
+    <div class="testimonial-marquee">
+      <div class="testimonial-track">
+        {% for t in testimonials %}
+        <div class="testimonial-card">
+
+          <!-- CLIENT NAME -->
+          <h6>{{ t.client_name }}</h6>
+
+          <!-- MESSAGE -->
+          <p class="testimonial-text">“{{ t.message }}”</p>
+
+          <!-- COMPANY / COUNTRY -->
+          <div class="client-info">
+            <p>{{ t.company_name }}</p>
+            <p>{{ t.country }}</p> 
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Duplicate track for infinite scroll -->
+      <div class="testimonial-track" aria-hidden="true">
+        {% for t in testimonials %}
+        <div class="testimonial-card">
+
+          <!-- CLIENT NAME -->
+          <h6>{{ t.client_name }}</h6>
+
+          <!-- MESSAGE -->
+          <p class="testimonial-text">“{{ t.message }}”</p>
+
+          <!-- COMPANY / COUNTRY -->
+          <div class="client-info">
+            <p>{{ t.company_name }}</p>
+            <p>{{ t.country }}</p> 
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>
+

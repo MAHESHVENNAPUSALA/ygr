@@ -1,0 +1,438 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us | Enterprise</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+<style>
+/* ===== ENTERPRISE THEME ===== */
+body {
+  background: linear-gradient(180deg, #eef3f9, #ffffff);
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+/* FIX HORIZONTAL OVERFLOW / OVERLAPPING */
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.contact-hero {
+  text-align: center;
+  padding: 80px 20px 60px;
+}
+
+.contact-hero h1 {
+  font-weight: 800;
+  color: #0b2540;
+  margin-bottom: 10px;
+}
+
+.contact-hero p {
+  max-width: 600px;
+  margin: auto;
+  font-size: 15px;
+  color: #5f6c7b;
+}
+
+/* MAIN CONTAINER */
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px 80px;
+}
+
+/* FORM CARD */
+.form-card {
+  background: #ffffff;
+  padding: 45px;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(11,37,64,0.08);
+}
+
+.form-card h4 {
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #0b2540;
+}
+
+.form-control,
+.form-select {
+  padding: 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #dde3ec;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #092a49;
+  box-shadow: none;
+}
+
+/* BUTTON */
+.btn-primary {
+  background: linear-gradient(135deg, #0D3B6C, #095191) !important;
+  border-color: linear-gradient(135deg, #0D3B6C, #095191) !important;
+  border-radius: 30px;
+  padding: 14px;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #092a49 !important;
+  border-color: #092a49 !important;
+  opacity: 0.95;
+  box-shadow: none !important;
+}
+
+
+/* INFO CARDS */
+.info-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+  height: 100%;
+  position: relative;
+}
+
+.info-card h5 {
+  font-weight: 700;
+  color: #092a49;
+  margin-bottom: 15px;
+}
+
+.info-card p {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #475569;
+}
+
+.info-card a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #092a49;
+  text-decoration: none;
+}
+
+/* COMING SOON BADGE */
+.coming-soon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: #f59e0b;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+/* MAPS */
+.map-frame {
+  width: 100%;
+  height: 220px;
+  border-radius: 14px;
+  border: none;
+  margin-top: 15px;
+}
+
+/* LOCATION GRID */
+.locations-title {
+  text-align: center;
+  font-weight: 800;
+  color: #0b2540;
+  margin: 70px 0 40px;
+}
+/* ================= CLEAN MOBILE VERSION ================= */
+@media (max-width: 767px) {
+
+  /* HERO */
+  .contact-hero {
+    padding: 50px 15px 40px;
+  }
+
+  .contact-hero h1 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .contact-hero p {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  /* MAIN CONTAINER */
+  .contact-container {
+    padding: 0 12px 60px;
+  }
+
+  /* FORM CARD */
+  .form-card {
+    padding: 28px 20px;
+    border-radius: 14px;
+  }
+
+  .form-card h4 {
+    font-size: 20px;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 14px;
+    padding: 13px;
+  }
+
+  textarea.form-control {
+    min-height: 120px;
+  }
+
+  /* BUTTON */
+  .btn-primary {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* INFO CARDS */
+  .info-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .info-card h5 {
+    font-size: 17px;
+  }
+
+  .info-card p,
+  .info-card a {
+    font-size: 13px;
+  }
+
+  /* COMING SOON BADGE */
+  .coming-soon {
+    font-size: 11px;
+    padding: 3px 8px;
+    top: 0%;
+  }
+
+  /* LOCATIONS TITLE */
+  .locations-title {
+    font-size: 24px;
+    margin: 50px 0 30px;
+  }
+
+  /* MAPS */
+  .map-frame {
+    height: 200px;
+    border-radius: 12px;
+  }
+
+  /* ROW SPACING */
+  .row.g-5 {
+    --bs-gutter-y: 2rem;
+  }
+
+  .row.g-4 {
+    --bs-gutter-y: 1.5rem;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<!-- HERO -->
+<section class="contact-hero">
+  <h1>Let’s Build Something Great</h1>
+  <p>Have a project in mind or need enterprise-grade solutions?  
+     Our team is ready to help you.</p>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="contact-container">
+
+  <div class="row g-5">
+    
+    <!-- FORM -->
+    <div class="col-lg-6">
+      <div class="form-card">
+        <h4>Contact Our Team</h4>
+
+        <form id="contactForm">
+          <div class="mb-3">
+            <input type="text" class="form-control" id="fullName" placeholder="Full Name" required>
+          </div>
+
+          <div class="mb-3">
+            <input type="email" class="form-control" id="email" placeholder="Business Email" required>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select" id="service" required>
+              <option disabled selected>Service Interested In</option>
+              <option>Web Design</option>
+              <option>Web Applications</option>
+              <option>Mobile Apps</option>
+              <option>Digital Marketing</option>
+              <option>UI / UX Design</option>
+              <option>Software Testing</option>
+              <option>IT Support & Maintenance</option>
+              <option>Internships & Training</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <textarea class="form-control" id="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Submit Request</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="col-lg-6">
+      <div class="row g-4">
+
+        <div class="col-md-6">
+          <div class="info-card">
+            <h5>Head Office</h5>
+            <p>📍 Hyderabad, Telangana</p>
+            <p>📞 +91 7794053340</p>
+            <p>📧 info@ygrgobalitservices.com</p>
+            <p>🕒 Mon–Sat | 9:30 AM – 6:30 PM</p>
+            <a href="https://maps.app.goo.gl/p8uuZZmMgx7VHn7eA" target="_blank">View Location</a>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-card">
+            <h5>Guntur Office</h5>
+            <p>📍 Guntur, Andhra Pradesh</p>
+            <p>📞 +91 7794053340</p>
+            <p>🕒 Mon–Sat | 9:30 AM – 6:30 PM</p>
+            <a href="https://www.google.com/maps/search/Guntur" target="_blank">View Location</a>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-card">
+            <h5>Hyderabad Office</h5>
+            <p>📍 Hyderabad, Telangana</p>
+            <p>📞 +91 7794053340</p>
+            <p>🕒 Mon–Sat | 9:30 AM – 6:30 PM</p>
+            <a href="https://maps.app.goo.gl/NSPZmDWjHzV671zK7" target="_blank">View Location</a>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-card">
+            <div class="coming-soon">Coming Soon</div>
+            <h5>Vinukonda Branch</h5>
+            <p>📍 Vinukonda, Andhra Pradesh</p>
+            <p>📞 +91 7794053340</p>
+            <p>🕒 Mon–Sat | 9:30 AM – 6:30 PM</p>
+            <a href="https://www.google.com/maps/search/Vinukonda" target="_blank">View Location</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATIONS -->
+<h2 class="locations-title">Our Presence</h2>
+
+<div class="row g-4">
+
+  <!-- MAIN BRANCH – Hyderabad -->
+  <div class="col-md-6">
+    <div class="info-card">
+      <h5>Main Branch – YGR Gobal IT Services Pvt. Ltd.</h5>
+      <p>📍 Hyderabad, Telangana</p>
+      <iframe
+        class="map-frame"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8205.3507874237!2d78.392665!3d17.489361!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2aa1a33d59440f77%3A0x595e01da47d1657b!2sYGR%20GOBAL%20IT%20SERVICES%20Pvt.%20Ltd.!5e1!3m2!1sen!2sin!4v1767593924604!5m2!1sen!2sin"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- SUB BRANCH – Guntur -->
+  <div class="col-md-6">
+    <div class="info-card">
+    <h5>Sub Branch – YGR IT Services & Training in Guntur.</h5>
+      <p>📍 Guntur, Andhra Pradesh</p>
+      <iframe class="map-frame"
+        src="https://www.google.com/maps?q=Guntur&output=embed"
+        loading="lazy" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- SUB BRANCH – Hyderabad -->
+  <div class="col-md-6">
+    <div class="info-card">
+      <h5>Sub Branch - YGR IT Services & Training in KPHB,Hyderabad.</h5>
+      <p>📍 Hyderabad, Telangana</p>
+      <iframe class="map-frame"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8205.19865742781!2d78.400827!3d17.492732!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91e871194767%3A0xf75fd3693ea5bb81!2sYGR%20IT%20TRAINING&#39;S%20and%20Branch%202!5e1!3m2!1sen!2sin!4v1767593971892!5m2!1sen!2sin"
+        loading="lazy" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- SUB BRANCH – Vinukonda (Coming Soon) -->
+  <div class="col-md-6">
+    <div class="info-card">
+      <div class="coming-soon">Coming Soon</div>
+      <h5>Sub Branch – YGR IT Training Vinukonda </h5>
+      <p>📍 Vinukonda, Andhra Pradesh</p>
+      <iframe class="map-frame"
+        src="https://www.google.com/maps?q=Vinukonda&output=embed"
+        loading="lazy" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+</div>
+
+
+</section>
+
+{% include "footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // WhatsApp form submission
+  document.getElementById("contactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const name = document.getElementById("fullName").value;
+    const email = document.getElementById("email").value;
+    const service = document.getElementById("service").value;
+    const message = document.getElementById("message").value;
+
+    const waMessage = `Hello! I have a project inquiry.%0A%0AName: ${name}%0AEmail: ${email}%0AService: ${service}%0AMessage: ${message}`;
+    const waNumber = "917794053340";
+
+    window.open(`https://wa.me/${waNumber}?text=${waMessage}`, "_blank");
+  });
+</script>
+
+</body>
+</html>

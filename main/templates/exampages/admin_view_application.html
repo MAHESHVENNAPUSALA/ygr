@@ -1,0 +1,170 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Application Details{% endblock %}
+{% block header_title %}Application Details{% endblock %}
+
+{% block content %}
+
+<style>
+/* Container */
+.detail-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.08);
+    max-width: 900px;
+    margin: auto;
+    font-size: 0.95rem;
+}
+
+/* Section Titles */
+.detail-container h3 {
+    border-left: 6px solid #4f46e5;
+    padding-left: 12px;
+    color: #092a49;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* Paragraphs */
+.detail-container p {
+    margin: 6px 0;
+    line-height: 1.5;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Document links */
+.document-link {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.document-link:hover {
+    color: #1d4ed8;
+}
+
+/* Profile image */
+.profile-photo {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 8px;
+    max-width: 200px;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+    .detail-container {
+        padding: 20px;
+    }
+}
+</style>
+
+<div class="detail-container">
+    <a href="{% url 'job_applications_dashboard' %}" class="back-btn">← Back</a>
+
+    <!-- Personal Info -->
+    <h3>Personal Info</h3>
+    <p><strong>Name:</strong> {{ application.first_name }} {{ application.last_name }}</p>
+    <p><strong>Email:</strong> {{ application.email }}</p>
+    <p><strong>Phone:</strong> {{ application.phone }}</p>
+    <p><strong>DOB:</strong> {{ application.dob }}</p>
+    <p><strong>Gender:</strong> {{ application.gender }}</p>
+    <p><strong>Current City:</strong> {{ application.current_city }}</p>
+    <p><strong>Current Address:</strong> {{ application.current_address }}</p>
+    <p><strong>Permanent Address:</strong> {{ application.permanent_address }}</p>
+
+    <!-- Job Info -->
+    <h3>Job Info</h3>
+    <p><strong>Role:</strong> {{ application.job_role }}</p>
+    <p><strong>Department:</strong> {{ application.department }}</p>
+    <p><strong>Employment Type:</strong> {{ application.employment_type }}</p>
+    <p><strong>Preferred Work Mode:</strong> {{ application.preferred_work_mode }}</p>
+    <p><strong>Preferred Job Location:</strong> {{ application.preferred_job_location }}</p>
+    <p><strong>Status:</strong> {{ application.get_status_display }}</p>
+    <p><strong>Submitted At:</strong> {{ application.submitted_at|date:"d M Y H:i" }}</p>
+
+    <!-- Education -->
+    <h3>Education</h3>
+    <p><strong>Highest Qualification:</strong> {{ application.highest_qualification }}</p>
+    <p><strong>College/University:</strong> {{ application.college_university }}</p>
+    <p><strong>Passout Year:</strong> {{ application.passout_year }}</p>
+    <p><strong>Course:</strong> {{ application.course }}</p>
+    <p><strong>SSC Marks:</strong> {{ application.ssc_marks }}</p>
+    <p><strong>Intermediate/Diploma Marks:</strong> {{ application.inter_diploma_marks }}</p>
+    <p><strong>Higher Education Marks:</strong> {{ application.higher_education_marks }}</p>
+    <p><strong>Backlogs:</strong> {{ application.backlogs }}</p>
+
+    <!-- Skills & Experience -->
+    <h3>Skills & Experience</h3>
+    <p><strong>Primary Skills:</strong> {{ application.primary_skills }}</p>
+    <p><strong>Secondary Skills:</strong> {{ application.secondary_skills }}</p>
+    <p><strong>Technical Skills:</strong> {{ application.technical_skills }}</p>
+    <p><strong>Certifications:</strong> {{ application.certifications }}</p>
+    <p><strong>Internship Details:</strong> {{ application.internship_details }}</p>
+    <p><strong>Candidate Type:</strong> {{ application.candidate_type }}</p>
+    <p><strong>Total Experience:</strong> {{ application.total_experience }}</p>
+    <p><strong>Relevant Experience:</strong> {{ application.relevant_experience }}</p>
+    <p><strong>Current Company:</strong> {{ application.current_company }}</p>
+    <p><strong>Current Designation:</strong> {{ application.current_designation }}</p>
+    <p><strong>Current CTC:</strong> {{ application.current_ctc }}</p>
+    <p><strong>Expected CTC:</strong> {{ application.expected_ctc }}</p>
+    <p><strong>Notice Period:</strong> {{ application.notice_period }}</p>
+    <p><strong>Reason for Job Change:</strong> {{ application.reason_for_job_change }}</p>
+
+    <!-- Documents -->
+    <h3>Documents</h3>
+    <p><strong>Resume:</strong> <a class="document-link" href="{% url 'download_resume' application.id %}">Download</a></p>
+    <p><strong>Profile Photo:</strong></p>
+    <img src="{{ application.profile_photo.url }}" alt="Profile Photo" class="profile-photo">
+    <p><strong>PAN Number:</strong> {{ application.pan_number }}</p>
+    <p><strong>PAN Card:</strong> 
+        {% if application.pan_card_image %}<a class="document-link" href="{{ application.pan_card_image.url }}">View</a>{% endif %}
+    </p>
+    <p><strong>Aadhaar Number:</strong> {{ application.aadhaar_number }}</p>
+    <p><strong>Aadhaar Front:</strong> 
+        {% if application.aadhaar_front_image %}<a class="document-link" href="{{ application.aadhaar_front_image.url }}">View</a>{% endif %}
+    </p>
+    <p><strong>Aadhaar Back:</strong> 
+        {% if application.aadhaar_back_image %}<a class="document-link" href="{{ application.aadhaar_back_image.url }}">View</a>{% endif %}
+    </p>
+
+    <!-- Professional Links -->
+    <h3>Professional Links</h3>
+    <p><strong>LinkedIn:</strong> <a class="document-link" href="{{ application.linkedin }}" target="_blank">{{ application.linkedin }}</a></p>
+    <p><strong>GitHub/Portfolio:</strong> <a class="document-link" href="{{ application.github }}" target="_blank">{{ application.github }}</a></p>
+
+    <!-- Test / Interview Details -->
+    <h3>Test & Interview</h3>
+    <p><strong>Basic Test Date:</strong> {{ application.basic_test_date }}</p>
+    <p><strong>Test Link:</strong> <a href="{{ application.test_link }}" class="document-link" target="_blank">{{ application.test_link }}</a></p>
+    <p><strong>Document Verification Date:</strong> {{ application.document_verification_date }}</p>
+    <p><strong>Interview Date:</strong> {{ application.interview_date }}</p>
+    <p><strong>Interview Link:</strong> <a href="{{ application.interview_link }}" class="document-link" target="_blank">{{ application.interview_link }}</a></p>
+    <p><strong>Technical Round Date:</strong> {{ application.technical_round_date }}</p>
+    <p><strong>Technical Round Link:</strong> <a href="{{ application.technical_round_link }}" class="document-link" target="_blank">{{ application.technical_round_link }}</a></p>
+    <p><strong>Document Submission Date:</strong> {{ application.document_submission_date }}</p>
+    <p><strong>Joining Date:</strong> {{ application.join_date }}</p>
+
+    <!-- Notes -->
+    <h3>Notes & Messages</h3>
+    <p><strong>Rejection Message:</strong> {{ application.rejection_message }}</p>
+    <p><strong>Message:</strong> {{ application.note }}</p>
+</div>
+
+{% endblock %}

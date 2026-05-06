@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Help & Support | IT Training & Technical Assistance</title>
+
+<meta name="description" content="Get help with IT training, course enrollment, payments, and technical support. Contact our support team for quick assistance.">
+
+<meta name="keywords" content="IT help, IT support, IT training help, course support">
+
+<link rel="icon" type="image/png" href="/static/images/logo.png"/>
+
+<!-- CSS --> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+    /* ===== Global ===== */
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f6fa;
+        margin: 0;
+        padding: 0;
+        line-height: 1.7;
+        color: #333;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* ===== Help Top Section ===== */
+    .help-top-sec {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .top-heading {
+        text-align: center;
+        font-size: 28px;
+        color: #092a49;
+        margin-bottom: 30px;
+    }
+
+    .help-top-sec .text-con {
+        margin-bottom: 25px;
+    }
+
+    .help-top-sec .text-con h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #092a49;
+    }
+
+    .help-top-sec .text-con p {
+        font-size: 16px;
+        color: #797979;
+        margin-bottom: 6px;
+    }
+
+    .help-top-sec .contact-sec {
+        background: #eef4ff;
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-top: 20px;
+    }
+
+    .help-top-sec .contact-sec p a {
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #092a49;
+    }
+  .help-top-sec .contact-sec p a:hover{color:#0796fe; text-decoration: none;}
+    /* ===== FAQ Address Style Applied ===== */
+    .help-btm-sec {
+        background-color: #f9fafb;
+        padding: 20px 30px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: 30px auto 60px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border: none;
+    }
+    .help-btm-sec h1 {
+        color: #092a49;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    .help-btm-sec .hlp-text-con h4 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #092a49;
+        font-size: 18px;
+        border-bottom: 2px solid #1a73e8;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .help-btm-sec .hlp-text-con p {
+        margin: 5px 0 15px;
+        line-height: 1.6;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .help-btm-sec i {
+        color: #092a49;
+        margin-right: 6px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+        .help-top-sec,
+        .help-btm-sec {
+            padding: 20px;
+            margin: 20px 15px;
+        }
+
+        .top-heading {
+            font-size: 24px;
+        }
+
+        .help-top-sec .text-con h3 {
+            font-size: 18px;
+        }
+
+        .help-top-sec .text-con p,
+        .help-btm-sec .hlp-text-con p {
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<section class="help-top-sec">
+    <div>
+        <h1 class="top-heading">HELP</h1>
+
+        <div class="text-con">
+            <h3>1. Course Enrollment Assistance</h3>
+            <p>🔹 Need help choosing the right course? Our advisors can guide you based on your career goals.</p>
+            <p>🔹Facing issues with course registration? Contact us for step-by-step assistance.</p>
+            <p>🔹Need information about course fees, discounts, or payment plans? We’re here to help.</p>
+        </div>
+
+        <div class="text-con">
+            <h3>2. Technical Support</h3>
+            <p>🔹Trouble accessing your course materials? Let us know, and we’ll resolve it quickly.</p>
+            <p>🔹Issues with logging in to your student portal? Reset your password or contact support.</p>
+            <p>🔹Website not working properly? Clear your cache or try a different browser.</p>
+        </div>
+
+        <div class="text-con">
+            <h3>3. Payment & Billing Support</h3>
+            <p>🔹Need help with payment methods or failed transactions? Our billing team will assist you.</p>
+            <p>🔹Want to know about our refund and cancellation policy? Check our Refund Policy page or contact us.</p>
+            <p>🔹Need an invoice for your payment? Request it via email.</p>
+        </div>
+
+        <div class="text-con">
+            <h3>4. Certification & Job Assistance</h3>
+            <p>🔹 Completed your course? Download your certificate from your student dashboard.</p>
+            <p>🔹Need help with resume building and job placements? Our career support team is here to guide you.</p>
+            <p>🔹Looking for internship opportunities? Reach out to our placement cell.</p>
+        </div>
+
+        <div class="text-con">
+            <h3>5. Contact Support</h3>
+            <p>If you need further assistance, reach out to us:.</p>
+        </div>
+
+        <div class="contact-sec">
+            <p>📧 Email:<a href="mailto:hr@ygrgobalitservices.com"> hr@ygrgobalitservices.com</a></p>
+            <p>📞 Phone:<a href="tel:7794053340"> +91 7794053340</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="help-btm-sec">
+    <h1>📍 Address</h1>
+
+    <div class="hlp-text-con">
+        <h4>Head Office</h4>
+        <p> 
+            1st Floor, Manjeera Trinity Corporate, Unit No. 114,
+            Next to Lulu Mall, Kukatpally Housing Board Colony,
+            Kukatpally, Hyderabad, Telangana 500072
+        </p>
+    </div>
+
+    <div class="hlp-text-con">
+        <h4>Our Branch Office</h4>
+        <p> 
+            H.No. 15-26-101, 4th Floor, Road No. 2,
+            KPHB Colony, Near KPHB Metro Station, Hyd-72.
+        </p>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+</body>
+</html>

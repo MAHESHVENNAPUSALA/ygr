@@ -1,0 +1,186 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Vacancies Dashboard{% endblock %}
+{% block header_title %}Vacancies Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+/* ===== DASHBOARD CONTAINER ===== */
+.dashboard-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.dashboard-header h4 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #092a49;
+    margin: 0;
+}
+
+/* Add button */
+.add-btn {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.add-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.table th, .table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.table th {
+    background: #092a49;
+    color: #fff;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: #f5faff;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Edit */
+.edit-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Delete */
+.delete-btn {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.delete-btn:hover {
+    background-color: #a71d2a;
+}
+
+/* Empty */
+.table tbody tr td[colspan] {
+    text-align: center;
+    color: #777;
+    padding: 20px 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 20px;
+    }
+
+    .dashboard-header h4 {
+        font-size: 20px;
+    }
+
+    .add-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+</style>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+        <h4>Vacancies Dashboard</h4>
+        <a href="{% url 'add_vacancy' %}" class="add-btn">+ Add Vacancy</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Role</th>
+                    <th>Package</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.location }}</td>
+                    <td>{{ job.role }}</td>
+                    <td>{{ job.package }}</td>
+                    <td>
+                        <div class="actions">
+                            <a href="{% url 'edit_vacancy' job.id %}" class="action-btn edit-btn">Edit</a>
+
+                            <form method="post" action="{% url 'delete_vacancy' job.id %}"
+                                  onsubmit="return confirm('Delete this vacancy?');"
+                                  style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="action-btn delete-btn">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No vacancies available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

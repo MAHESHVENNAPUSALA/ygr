@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome 6 ONLY -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+<style>
+/* ===== General Styles ===== */
+body {margin:0;padding:0;font-family:'Lato',sans-serif;background-color:#f5f6fa;color:#797979}
+h1,h2,h3,h4,h5,h6{font-family:'Oswald',sans-serif;color:#092a49;font-weight:700}
+a{text-decoration:none;color:#092a49;transition:color 0.3s}
+a:hover{color:#fbcc27; text-decoration: none;}
+
+/* Top bar */
+ 
+.top-bar {
+    position: relative;
+    height: 40px;
+    background-image: linear-gradient(to right, #0796fe, #092a49);
+}
+
+.top-bar .top-bar-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+}
+
+.top-bar .top-bar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.top-bar .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 40px;
+    padding: 0 10px; 
+    text-align: center;
+    border-left: 1px solid rgba(255, 255, 255, .15);
+}
+
+.top-bar .text:last-child {
+    border-right: 1px solid rgba(255, 255, 255, .15);
+}
+
+.top-bar .text i {
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 5px; 
+}
+
+.top-bar .text h2 {
+    color: #eeeeee;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.top-bar .text a{
+  text-decoration: none;
+    color: #eeeeee;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.top-bar .text p {
+    color: #eeeeee;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 0 5px;
+}
+
+.top-bar .social {
+    display: flex;
+    height: 40px;
+    font-size: 0;
+    justify-content: flex-end;
+}
+
+.top-bar .social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    font-size: 16px;
+    color: #ffffff;
+    border-right: 1px solid rgba(255, 255, 255, .15);
+    text-decoration: none;
+}
+
+
+/* ================= TOP BAR SOCIAL BRAND COLORS ================= */
+ 
+.top-bar .social a[href*="x.com"]:hover {
+  
+    color: #000000;
+}
+ 
+.top-bar .social a[href*="facebook.com"]:hover {
+    
+    color: #1877f2;
+}
+ 
+.top-bar .social a[href*="linkedin.com"]:hover {
+    
+    color: #0a66c2;
+}
+ 
+.top-bar .social a[href*="instagram.com"]:hover {
+ 
+   color: #e1306c;;
+}
+ 
+.top-bar .social a[href*="youtube.com"]:hover {
+   
+    color: #ff0000;
+}
+
+/* Header */
+header{background-color:#092a49;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;height:60px;position:sticky;top:0;z-index:1000}
+header .logo img{height:60px;width:auto;display:block;padding-bottom:10px}
+header nav{display:flex;gap:30px}
+header nav a{color:#ffffff9c;font-size:16px}
+header nav a:hover{text-decoration: none ;color:#fbcc27}
+
+/* Services Dropdown */
+.nav-item.dropdown{position:static}
+.dropdown-menu{position:absolute;top:100%;left:0;right:0;margin-top:0;width:100%;max-width:100vw;background:#092a49;border-radius:0;box-shadow:0 25px 60px rgba(0,0,0,0.18);z-index:999;opacity:0;visibility:hidden;pointer-events:none;transition:all 0.35s ease}
+.dropdown-menu.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.dropdown-grid{display:grid;grid-template-columns:repeat(4,1fr);column-gap:60px;row-gap:22px;padding:30px}
+.dropdown-grid a{font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;padding-left:22px;position:relative;transition:all 0.25s ease}
+.dropdown-grid a::before{content:"➜";position:absolute;left:0;color:#fff;transition:transform 0.25s}
+.dropdown-grid a:hover{color:#fbcc27}
+.dropdown-grid a:hover::before{transform:translateX(6px)}
+
+/* About Us Dropdown */
+.nav-item.about-dropdown{position:relative}
+.nav-item.about-dropdown .about-menu{position:absolute;top:40px; left:-30px;min-width:200px;background:#092a49;border-radius:4px;box-shadow:0 8px 20px rgba(0,0,0,0.15);opacity:0;visibility:hidden;transform:translateY(10px);transition:all 0.3s ease;z-index:999}
+.nav-item.about-dropdown:hover .about-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.about-menu a{display:block;padding:10px 20px;font-size:15px;color:#ffffff;font-weight:500;text-decoration:none;transition:all 0.2s ease}
+.about-menu a:hover{color:#fbcc27;}
+
+/* Floating Support Button */
+.support-btn{position:fixed;bottom:20px;right:20px;width:55px;height:55px;    background:#092a49;color:#fff;border-radius:50%;font-size:26px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 10px 25px rgba(0,0,0,0.25);z-index:9999;transition:all 0.3s ease}
+.support-btn:hover{background:#092a49;text-decoration: none; transform:translateY(-3px)}
+.support-btn i{color:#fff}
+@media(max-width:768px){.support-btn{width:48px;height:48px;font-size:22px;bottom:90px;right:15px}}
+header nav a.active{color:#fff !important;font-weight:600}
+
+/* ================= MOBILE NAV ONLY ================= */
+@media(max-width:991px){
+  .top-bar{display:none !important}
+  header{padding:15px 20px;height:auto}
+  header .logo img{height:40px}
+  .mobile-toggle{font-size:26px;color:#fff;cursor:pointer;display:block}
+  header nav{position:absolute;top:100%;left:0;width:100%;background:#092a49;flex-direction:column;gap:0;display:none;z-index:999;max-height:70vh;overflow-y:auto}
+  header nav.active{display:flex}
+  header nav a{padding:14px 20px;color:#fff;font-size:16px;width:100%}
+  
+  /* Services Mobile Scrollable */
+  .nav-item.dropdown .dropdown-menu{position:static;width:100%;background:#0b355a;display:none;opacity:1;visibility:visible;max-height:70vh;overflow-y:auto}
+  .nav-item.dropdown .dropdown-menu.show{display:block}
+  .dropdown-grid{grid-template-columns:1fr;padding:0}
+  .dropdown-grid a{padding:12px 30px;font-size:14px;color:#fff}
+  .dropdown-grid a::before{content:"›";color:#fff}
+
+  /* About Us Mobile Clickable */
+  .nav-item.about-dropdown .about-menu{position:static;background:#0b355a;box-shadow:none;display:none;max-height:70vh;overflow-y:auto}
+  .nav-item.about-dropdown .about-menu a{padding:12px 30px;font-size:14px;color:#fff}
+  .nav-item.about-dropdown .about-menu a:hover{background-color:#0796fe33;color:#fff}
+  .nav-item.about-dropdown.active .about-menu{display:block}
+  .nav-item.about-dropdown{
+    padding-bottom: 14px;
+    padding-top: 14px;
+  }
+  .nav-item.dropdown {
+    padding-bottom: 14px;
+    padding-top: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Top Bar Start -->
+<div class="top-bar d-none d-md-block">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="top-bar-left">
+                    <div class="text">
+                        <i class="far fa-clock"></i>
+                        <h2>9:30 AM 6:30 PM</h2>
+                        <p>Mon - Fri</p>
+                    </div>
+                    <div class="text">
+                        <i class="fa fa-phone-alt"></i>
+                        <a href="tel:+917794053340">+91 77940 53340</a>
+                        <p>For Quotation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="top-bar-right">
+                    <div class="social">
+                        <a href="https://x.com/ygrgobalit2024"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61568888033386"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/ygr-gobal-it-services-pvt-ltd/?viewAsMember=true/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ygrgobalitservices/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@rrtalktrends"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top Bar End -->
+
+<header>
+  <div class="logo">
+    <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" alt="logo"></a>
+  </div>
+
+  <div class="mobile-toggle d-lg-none" id="mobileToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <nav>
+    <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+
+    <!-- About Us Dropdown -->
+    <div class="nav-item about-dropdown">
+      <a href="javascript:void(0)" id="aboutToggle" class="{% if request.resolver_match.url_name == 'aboutus' %}active{% endif %}">About Us ▾</a>
+      <div class="about-menu">
+        <a href="{% url 'aboutus' %}">Company Overview</a>
+        <a href="{% url 'team_list' %}">Meet the Team</a>
+      </div>
+    </div>
+
+    <!-- Services Dropdown -->
+    <div class="nav-item dropdown">
+      <a href="javascript:void(0)" id="servicesToggle" class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services ▾</a>
+      <div class="dropdown-menu" id="servicesMenu">
+        <div class="dropdown-grid">
+          <a href="{% url 'services' %}?type=web">Web Design</a>
+          <a href="{% url 'services' %}?type=webapp">Web Applications</a>
+          <a href="{% url 'services' %}?type=mobile">Mobile Apps</a>
+          <a href="{% url 'services' %}?type=dm">Digital Marketing</a>
+          <a href="{% url 'services' %}?type=uiux">UI / UX Design</a>
+          <a href="{% url 'services' %}?type=testing">Software Testing</a>
+          <a href="{% url 'services' %}?type=support">IT Support & Maintenance</a>
+          <a href="{% url 'services' %}?type=intern">Internships & Training</a>
+        </div>
+      </div>
+    </div>
+
+    <a href="{% url 'project_list' %}" class="{% if request.resolver_match.url_name == 'project_list' %}active{% endif %}">Portfolio</a>
+    <a href="{% url 'careers' %}" class="{% if request.resolver_match.url_name == 'careers' %}active{% endif %}">Careers</a>
+    <a href="{% url 'blog_list' %}" class="{% if request.resolver_match.url_name == 'blog_list' %}active{% endif %}">Blog</a>
+    <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact Us</a>
+        <div class="nav-item about-dropdown">
+            <a href="javascript:void(0)" id="demoToggle">Demo For Client ▾</a>
+      <div class="about-menu">
+        <a href="http://demo.ygrgobalitservices.com/"> Customer Care Vizag</a> 
+        <a href="http://trip.ygrgobalitservices.com/"> Trip</a> 
+          <a href="http://uiux.ygrgobalitservices.com/">CodeLabs</a> 
+      </div>
+    </div>
+  </nav>
+</header>
+ <a href="https://wa.me/917794053340" class="support-btn" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="bi bi-headset"></i>
+</a>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const mobileToggle = document.getElementById("mobileToggle");
+  const nav = document.querySelector("header nav");
+  const servicesToggle = document.getElementById("servicesToggle");
+  const servicesMenu = document.getElementById("servicesMenu");
+  const aboutToggle = document.getElementById("aboutToggle");
+  const aboutMenu = document.querySelector(".nav-item.about-dropdown .about-menu");
+  const demoToggle = document.getElementById("demoToggle");
+  const demoMenu = demoToggle.parentElement.querySelector(".about-menu");
+  // Toggle mobile nav
+  mobileToggle.addEventListener("click", function(e){
+    e.stopPropagation();
+    nav.classList.toggle("active");
+  });
+
+  // Toggle About Us
+  aboutToggle.addEventListener("click", function(e){
+    e.stopPropagation();
+    aboutMenu.parentElement.classList.toggle("active");
+    servicesMenu.classList.remove("show"); // close services
+  });
+  
+// Toggle Demo For Client
+demoToggle.addEventListener("click", function(e){
+  e.stopPropagation();
+  demoMenu.parentElement.classList.toggle("active");
+  servicesMenu.classList.remove("show");
+});
+
+  // Toggle Services
+  servicesToggle.addEventListener("click", function(e){
+    e.stopPropagation();
+    servicesMenu.classList.toggle("show");
+    aboutMenu.parentElement.classList.remove("active"); // close About Us
+  });
+
+  // Close everything on outside click
+  document.addEventListener("click", function(e){
+    if(!nav.contains(e.target)){
+      nav.classList.remove("active");
+      aboutMenu.parentElement.classList.remove("active");
+      servicesMenu.classList.remove("show");
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("scroll", function () {
+  const nav = document.querySelector("header nav");
+  const servicesMenu = document.getElementById("servicesMenu");
+  const aboutMenu = document.querySelector(".nav-item.about-dropdown");
+
+  nav.classList.remove("active");
+  servicesMenu.classList.remove("show");
+  aboutMenu.classList.remove("active");
+});
+</script>
+</body>
+</html>

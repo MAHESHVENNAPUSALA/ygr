@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YGR GOBAL IT Services | Jobs, Internships & Skill Tests</title>
+
+    <meta name="description" content="Apply for jobs, internships, and test your skills at YGR GOBAL IT Services. Empowering careers and providing professional growth opportunities.">
+    <meta name="keywords" content="jobs, internships, skill test, IT careers, career growth, professional development">
+
+    <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <style>
+        /* ================= RESET ================= */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f7f8fa; color: #333; max-width: 100%; overflow-x: hidden; }
+        a { text-decoration: none; }
+
+        /* ================= HEADER ================= */
+        .header { background-color: #0D3B6C; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; flex-wrap: wrap; }
+        .header .left img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #fff; }
+        .header .right { display: flex; gap: 30px; flex-wrap: wrap; }
+        .header .right a { color: #fff; font-weight: 600; transition: 0.3s; }
+        .header .right a:hover { color: #FFD700; }
+
+        /* ================= HERO ================= */
+        .home-hero { text-align: center; padding: 50px 20px; background-color: #f0f2f5; }
+        .home-hero h1 { color: #0D3B6C; font-size: 36px; font-weight: 700; margin-bottom: 15px; }
+        .home-hero p { font-size: 18px; color: #555; }
+
+        /* ================= PAGE CONTAINER ================= */
+        .layout-wrapper { display: flex; justify-content: center; align-items: stretch; gap: 40px; padding: 60px 20px; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; }
+        
+        .scroll-column { flex: 1; min-width: 250px; max-width: 320px; height: 600px; overflow: hidden; position: relative; border-radius: 12px; }
+        .scroll-column::before, .scroll-column::after { content: ""; position: absolute; left: 0; right: 0; height: 60px; z-index: 2; pointer-events: none; }
+        .scroll-column::before { top: 0; background: linear-gradient(to bottom, #f7f8fa, transparent); }
+        .scroll-column::after { bottom: 0; background: linear-gradient(to top, #f7f8fa, transparent); }
+
+        .scrolling-wrapper-up { display: flex; flex-direction: column; gap: 25px; animation: scrollVerticalUp 15s linear infinite; }
+        .scrolling-wrapper-down { display: flex; flex-direction: column; gap: 25px; animation: scrollVerticalDown 15s linear infinite; }
+        .scroll-column:hover .scrolling-wrapper-up, .scroll-column:hover .scrolling-wrapper-down { animation-play-state: paused; }
+
+        .scrolling-content { display: flex; flex-direction: column; gap: 25px; }
+
+        @keyframes scrollVerticalUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-50% - 12.5px)); }
+        }
+        @keyframes scrollVerticalDown {
+            0% { transform: translateY(calc(-50% - 12.5px)); }
+            100% { transform: translateY(0); }
+        }
+
+        .center-column { flex: 3; min-width: 300px; max-width: 1000px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 30px; padding: 10px; justify-content: center; align-items: center; }
+        .center-column .card { flex: 1; min-width: 320px; max-width: 500px; margin: 0 auto; }
+
+        /* ================= CARDS ================= */
+        .card { background: linear-gradient(145deg, #ffffff, #f0f4f8); border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); padding: 40px 25px; text-align: center; transition: all 0.4s ease; cursor: pointer; opacity: 0; transform: translateY(20px); }
+        .card.visible { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .card i { font-size: 40px; margin-bottom: 15px; }
+        .card h2 { font-size: 26px; color: #0D3B6C; margin-bottom: 15px; }
+        .card p { font-size: 15px; color: #555; margin-bottom: 25px; line-height: 1.5;text-align: left; }
+        .card button { background: linear-gradient(135deg, #0D3B6C, #095191); color: #fff; border: none; padding: 14px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .already-registered { margin-top: 15px; font-size: 16px; color: #555; }
+        .already-registered a { color: #0D3B6C; font-weight: 600; }
+
+        /* ================= ICON COLORS ================= */
+        .center-column .card:nth-child(1) i { color: #0D3B6C; }
+        .center-column .card:nth-child(2) i { color: #6610f2; }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 767px) {
+            body { padding-bottom: 65px; }
+            .header { padding: 15px 20px; }
+            .header .left img { width: 90px; height: 90px; }
+            .header .right { gap: 15px; }
+            .home-hero { padding: 20px; }
+            .home-hero h1 { font-size: 20px; line-height: 1.3; }
+            .home-hero p { font-size: 16px; text-align: left; }
+            .layout-wrapper { padding: 20px 15px; gap: 30px; }
+            .scroll-column { max-width: 100%; height: 500px; }
+            .center-column { max-width: 100%; }
+            .card { width: 100%; padding: 28px 20px; }
+            .card h2 { font-size: 22px; }
+            .card p { font-size: 18px; }
+            .card button { width: 100%; padding: 14px; }
+             .already-registered{
+                font-size: 18px;
+            }
+        }
+
+        
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+.student-card {
+    background: #f5f6f8;
+    border-radius: 16px;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+}
+
+.student-card img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.student-card h3 {
+    font-size: 20px;
+    color: #0b2545;
+    margin-bottom: 5px;
+}
+
+.student-card p {
+    font-size: 16px;
+    color: #666;
+}
+
+    </style>
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<div class="home-hero">
+    <h1>Build Your Career, Unlock Opportunities</h1>
+    <p>
+       Explore jobs, internships, and skill assessments to grow professionally and achieve your career goals.
+    </p>
+</div>
+
+<div class="layout-wrapper">
+    <!-- Left Column (Up Scroll) -->
+    <div class="scroll-column">
+        <div class="scrolling-wrapper-up">
+            <!-- First Set -->
+            <div class="scrolling-content">
+                <div class="student-card">
+                    <img src="/media/team/tharun.jpeg">
+                    <h3>Tharun</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/reddy_odFoq3p.jpeg">
+                    <h3>Himesh Reddy</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/pavan.jpeg">
+                    <h3>Pavan</h3>
+                    <p>JAVA Intern</p>
+                </div>
+            </div>
+            <!-- Duplicated Set for Infinite Scroll -->
+            <div class="scrolling-content">
+                <div class="student-card">
+                    <img src="/media/team/tharun.jpeg">
+                    <h3>Tharun</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/reddy_odFoq3p.jpeg">
+                    <h3>Himesh Reddy</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/pavan.jpeg">
+                    <h3>Pavan</h3>
+                    <p>JAVA Intern</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Center Column (Normal Cards) -->
+    <div class="center-column">
+        <div class="card">
+            <i class="fas fa-briefcase"></i>
+            <h2>Apply for Job</h2>
+            <p>Explore a wide range of job openings across various industries. Whether you're a fresh graduate or an experienced professional, find roles that match your skills and ambitions.</p>
+            <a href="{% url 'vacancies' %}"><button type="button">View Vacancies</button></a>
+            <div class="already-registered">
+                Already registered? <a href="{% url 'job_applicant_login' %}">Login</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-graduation-cap"></i>
+            <h2>Apply for Internship</h2>
+            <p>Kickstart your professional journey with internships that provide hands-on experience and mentorship. Build your resume and gain valuable skills for your career.</p>
+            <a href="{% url 'internships_list' %}"><button type="button">View Internships</button></a>
+            <div class="already-registered">
+                Already registered? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column (Down Scroll) -->
+    <div class="scroll-column">
+        <div class="scrolling-wrapper-down">
+            <!-- First Set -->
+            <div class="scrolling-content">
+                <div class="student-card">
+                    <img src="/media/team/vamsi.jpeg">
+                    <h3>Vamsi</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/sai.nikilesh.jpg.jpeg">
+                    <h3>Nikilesh</h3>
+                    <p>PYTHON Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/anil.kumar.jpg.jpeg">
+                    <h3>Anil Kumar</h3>
+                    <p>java Intern</p>
+                </div>
+            </div>
+            <!-- Duplicated Set for Infinite Scroll -->
+            <div class="scrolling-content">
+                <div class="student-card">
+                    <img src="/media/team/vamsi.jpeg">
+                    <h3>Vamsi</h3>
+                    <p>JAVA Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/sai.nikilesh.jpg.jpeg">
+                    <h3>Nikilesh</h3>
+                    <p>Java Intern</p>
+                </div>
+                <div class="student-card">
+                    <img src="/media/team/anil.kumar.jpg.jpeg">
+                    <h3>Anil Kumar</h3>
+                    <p>java Intern</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+<script>
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>

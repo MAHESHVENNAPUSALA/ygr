@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exam Result</title>
+  <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        background: #fff;
+        width: 400px;
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+        position: relative;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #28a745;
+        margin-bottom: 20px;
+    }
+
+    .card h1 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .score {
+        font-size: 36px;
+        font-weight: bold;
+        color: #28a745;
+        margin: 20px 0;
+    }
+
+    .btn-home {
+        display: inline-block;
+        text-decoration: none;
+        background: #007bff;
+        color: white;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: background 0.3s, transform 0.3s;
+        margin-top: 15px;
+    }
+
+    .btn-home:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+</style>
+</head>
+<body>
+    <div class="card">
+        {% if user.photo %}
+        <img src="{{ user.photo.url }}" alt="Profile Photo" class="profile-img">
+        {% endif %}
+        <!-- <h1>Congratulations</h1> -->
+        <p>NAME: <strong>{{ name }}</strong></p>
+        <p>Roll Number: <strong>{{ roll_no }}</strong></p>
+        <h1>Your score</h1>
+        <div class="score">{{ score }}/60</div>
+        <a href="{% url 'home' %}" class="btn-home">Go to Home</a>
+    </div>
+</body>
+</html>

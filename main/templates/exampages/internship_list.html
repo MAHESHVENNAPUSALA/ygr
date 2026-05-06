@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Internships & IT Training in KPHB Hyderabad | Top Software Companies</title>
+<link rel="icon" type="image/png" href="/static/images/logo.png"/>
+<meta name="keywords" content="IT Company, Software Development, Web Design, Mobile Apps, IT Training, Internships">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin: 30px 0;
+    color: #333;
+}
+
+.internship-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 20px 40px;
+}
+
+.internship-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+}
+
+ 
+
+.internship-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.internship-item h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+  
+
+}
+
+.internship-item p {
+    font-size: 14px;
+    color: #555;
+ 
+}
+
+.apply-btn {
+    display: inline-block;
+    margin-top: -19px;
+    padding: 8px 15px;
+     background: linear-gradient(135deg, #0D3B6C, #095191);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+   
+}
+
+.apply-btn:hover {
+     background: linear-gradient(135deg, #0D3B6C, #095191);
+   text-decoration: none;
+    color: #fff; 
+    opacity: 0.95;  
+ 
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background: #fff;
+    width: 50%;
+    max-width: 600px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .internship-grid { grid-template-columns: repeat(4,1fr);    margin-bottom:20px;}
+    .modal-content { width: 70%; }
+}
+
+@media (max-width: 600px) {
+    .internship-grid { grid-template-columns: 1fr; }
+    .modal-content { width: 90%; }
+}
+.head{
+    text-align:center;
+    color:#092a49; 
+    margin-top:40px; 
+    margin-bottom:30px;
+}
+@media (max-width: 767px) {
+    .head{
+        font-size: 24px;
+        margin-top: 20px; 
+        margin-bottom: 10px;
+    }}
+</style>
+</head>
+
+<body>
+{% include 'header.html' %}
+<h1 class="head">All Internships</h1>
+
+<div class="internship-grid">
+{% for i in internships %}
+    <div class="internship-item"
+         onclick="openModal('{{ i.title|escapejs }}','{{ i.syllabus|escapejs }}')">
+
+        {% if i.image %}
+        <img src="{{ i.image.url }}" alt="{{ i.title }}">
+        {% endif %}
+
+        <h3>{{ i.title }}</h3>
+        <p><strong>Duration:</strong> {{ i.duration }}</p>
+
+        <!-- STOP POPUP HERE -->
+        <a class="apply-btn"
+           href="{% url 'register' i.id %}"
+           onclick="event.stopPropagation();">
+            Apply Internship
+        </a>
+    </div>
+{% endfor %}
+</div>
+
+<!-- MODAL -->
+<div id="syllabusModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <hr>
+        <h3>Syllabus</h3>
+        <p id="modalSyllabus"></p>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+<script>
+function openModal(title, syllabus) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalSyllabus").innerText = syllabus;
+    document.getElementById("syllabusModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("syllabusModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("syllabusModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+</script>
+
+</body>
+</html>

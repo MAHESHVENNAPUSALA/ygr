@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Dashboard</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}"/>
+
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* HEADER (UNCHANGED) */
+.header {
+  background-color: #092A49;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  color: white;
+  height: 70px;
+  flex-wrap: wrap;
+}
+
+.header img {
+height:60px;width:auto;display:block;padding-bottom:10px;
+}
+
+.header a,
+.header button {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* MAIN */
+.main {
+  display: flex;
+  max-width: 1200px;
+  margin: 30px auto;
+  gap: 30px;
+}
+
+/* PROFILE CARD */
+.profile-card {
+  width: 300px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.profile-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-card h3 {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.profile-card p {
+  text-align: left;
+  font-size: 14px;
+}
+
+/* RIGHT SIDE */
+.cards-container {
+  flex: 1;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  cursor: pointer;
+  border-left: 6px solid transparent;
+}
+
+.card.active {
+  border-left: 6px solid #092A49;
+}
+
+.card h2 {
+  margin: 0;
+  color: #092A49;
+}
+
+.card .content {
+  margin-top: 15px;
+  display: none;
+}
+
+.card.active .content {
+  display: block;
+}
+
+/* INTERNSHIP ROW */
+.syllabus-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e6ffed;
+  border: 1px solid #4CAF50;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.topic-title {
+  font-size: 16px;
+  color: #222;
+}
+
+/* BUTTON */
+.download-btn {
+  padding: 8px 18px;
+  background: #28a745;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-btn.disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+/* ERROR */
+.error-msg {
+  color: #d9534f;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-card {
+    width: 90%;
+  }
+}
+ 
+ 
+ /* ===== BACK LINK ===== */
+.back-link {
+  display: inline-block;
+  margin: 20px;
+  color: #092A49;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.back-link:hover {
+  text-decoration: none;
+  color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="{% static 'images/logo.png' %}">
+  <div>
+     
+ <a href="javascript:history.back()" class="back-link">  Back</a>
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+</div>
+ 
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PROFILE -->
+  <div class="profile-card">
+    {% if user.photo %}
+      <img src="{{ user.photo.url }}">
+    {% else %}
+      <img src="{% static 'images/default.png' %}">
+    {% endif %}
+
+    <h3>
+      {{ user.username }}
+      <a href="{% url 'edit_profile' user.id %}">&#9998;</a>
+    </h3>
+
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Phone:</b> {{ user.phone }}</p>
+    <p><b>College:</b> {{ user.clg_name }}</p>
+    <p><b>Roll No:</b> {{ user.roll_no }}</p>
+  </div>
+
+  <!-- INTERNSHIP -->
+  <div class="cards-container">
+    <div class="card" onclick="toggleCard(this)">
+      <h2>My Internship</h2>
+
+      <div class="content">
+        {% if course_data %}
+        <div class="syllabus-item">
+          <span class="topic-title">{{ course_data.title }}</span>
+
+          {% if exam_completed %}
+            <!-- <a href="{% url 'download_certificate' course_data.id %}" class="download-btn">
+              Download Certificate
+            </a> -->
+          {% else %}
+            <button class="download-btn disabled" onclick="showError(event)">
+              Download Certificate
+            </button>
+          {% endif %}
+        </div>
+
+        {% if not exam_completed %}
+        <p id="exam-error" class="error-msg">
+          ❌ Please complete the exam to download your certificate.
+        </p>
+        {% endif %}
+
+        {% else %}
+          <p>No internship assigned</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(card) {
+  card.classList.toggle("active");
+}
+
+function showError(event) {
+  event.preventDefault();
+  document.getElementById("exam-error").style.display = "block";
+}
+</script>
+
+</body>
+</html>

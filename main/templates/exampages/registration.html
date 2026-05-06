@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internship Registration</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #092A49;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0b3a66;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .amount-box {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Internship Registration</h2>
+
+    <form method="POST" action="{% url 'create_payment' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="plan" value="{{ selected_plan }}">
+        <input type="hidden" name="amount" id="total_amount" value="{{ amount }}">
+
+        <label>Full Name</label>
+        <input type="text" name="name" required>
+
+        <label>Phone Number</label>
+        <input type="text" name="phone" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Course</label>
+        <select name="course" required>
+            <option value="">Select Course</option>
+            <option>Python</option>
+            <option>Java</option>
+            <option>Testing</option>
+            <option>AWS</option>
+            <option>Digital Marketing</option>
+        </select>
+
+        <label>Address</label>
+        <textarea name="address"></textarea>
+
+        <h4>Select Payment Type</h4>
+
+        <input type="radio" name="payment_type" value="full" checked onclick="toggleEMI(); updateAmount()"> Full Payment<br>
+        <input type="radio" name="payment_type" value="emi" onclick="toggleEMI(); updateAmount()"> EMI<br><br>
+
+        <!-- EMI Section -->
+        <div id="emi_section" style="display:none;">
+            <label>Select Installment</label>
+            <select name="emi_part" id="emi_part" onchange="updateAmount()">
+                <option value="">Select Installment</option>
+                <option value="1">1st Installment</option>
+                <option value="2">2nd Installment</option>
+                <option value="3">3rd Installment</option>
+            </select>
+        </div>
+
+        <!-- Amount Display -->
+        <div class="amount-box">
+            <p><strong>Total Amount:</strong> ₹{{ total_amount }}</p>
+            <p id="pay_amount"><strong>Payable:</strong> ₹{{ total_amount }}</p>
+        </div>
+
+        <button type="submit">Proceed to Pay</button>
+    </form>
+</div>
+
+<script>
+function toggleEMI() {
+    let emiSection = document.getElementById("emi_section");
+    let emiSelect = document.getElementById("emi_part");
+    let selected = document.querySelector('input[name="payment_type"]:checked').value;
+
+    if (selected === "emi") {
+        emiSection.style.display = "block";
+        emiSelect.required = true;
+    } else {
+        emiSection.style.display = "none";
+        emiSelect.required = false;
+        emiSelect.value = "";
+    }
+}
+
+function updateAmount() {
+    let total = parseInt(document.getElementById("total_amount").value);
+    let selected = document.querySelector('input[name="payment_type"]:checked').value;
+    let emiPart = document.getElementById("emi_part").value;
+
+    let pay = total;
+
+    if (selected === "emi") {
+        let firstTwo = Math.floor(total * 0.3);
+
+        if (emiPart == "1" || emiPart == "2") {
+            pay = firstTwo;
+        } else if (emiPart == "3") {
+            pay = total - (firstTwo * 2);
+        } else {
+            pay = 0;
+        }
+    }
+
+    document.getElementById("pay_amount").innerHTML = "<strong>Payable:</strong> ₹" + pay;
+}
+
+// Initial load
+updateAmount();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+      <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+    <style>
+        /* Reset some default margin/padding */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #092A49;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        /* Logo styling */
+        .left img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover; /* ensures image fits nicely */
+        }
+
+        /* Navigation links */
+        .right {
+            display: flex;
+            gap: 20px; /* space between links */
+        }
+
+        .right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .right a:hover {
+            text-decoration: underline;
+        }
+         /* Container to hold cards */
+        .container {
+            display: flex; /* arrange cards in a row */
+            justify-content: center; /* center horizontally */
+            align-items: center;     /* center vertically if needed */
+            gap: 30px; /* space between cards */
+            padding: 50px;
+            flex-wrap: wrap; /* allows wrapping on small screens */
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 40px 30px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        /* Card hover effect */
+        .card:hover {
+            /* transform: translateY(-10px); */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        /* Card heading */
+        .card h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #092A49;
+        }
+        .question
+        {
+            background-color:#092A49;
+            padding: 20px 10px;
+            margin: 10px 10px;
+            width: 200px;
+            border: 2px solid black;
+            
+            display: flex;
+        
+       
+
+        }
+        .question a
+        {
+            color:#fff;
+            text-decoration: none;
+            padding-left: 22px;
+                 
+        }
+
+
+        /* Responsive: stack cards on small screens */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+        }
+        button
+        {
+            background-color: #092A49;
+            
+            margin-top: 20px;
+            color: white;
+            padding: 10px 10px;
+            
+           
+        }
+
+        /* Mobile styles */
+@media (max-width: 600px) {
+    /* Header adjustments */
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 10px;
+        gap: 10px;
+    }
+
+    .left img {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Navigation links stack vertically */
+    .right {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .right a {
+        font-size: 14px;
+    }
+
+    /* Container and cards adjustments */
+    .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        width: 100%; /* make cards full-width on mobile */
+        padding: 20px;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    /* Button adjustments */
+    button {
+        width: 100%; /* make button full-width */
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <img src="{% static 'image/logo-1-removebg-preview.png' %}" alt="logohello">
+        </div>
+        <h2>Register</h2>
+        <div class="right">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+    <!-- cards-----ddddd -->
+     <div class="container">
+        <div class="card">
+            <h2>Apply for job</h2>
+             <a href="#"><button type="button">Apply</button></a>
+                   <div class="already-registered" style="text-align:center; margin-top:15px; font-size: 15px;">
+        Already registered? <a href="{% url 'login' %}">Login</a>
+    </div>
+            
+        </div>
+
+
+         <div class="card">
+            <h2>Apply for intenship</h2>
+<a href="{% url 'internships_list' %}"><button type="button">View Internship</button></a>
+             <div class="already-registered" style="text-align:center; margin-top:15px; font-size: 15px;">
+        Already registered? <a href="{% url 'login' %}">Login</a>
+    </div>
+        </div>
+
+
+        <div class="card">
+           <h2>Test Your Skills</h2>
+
+            <a href="{% url 'login' %}"><button type="button">Login</button></a>
+             <div class="already-registered" style="text-align:center; margin-top:15px; font-size: 15px;">
+        <!-- Already registered? <a href="{% url 'login' %}">Login</a> -->
+    </div>
+        </div>
+
+     </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ blog.title }} | YGR Global IT Services</title>
+
+<link rel="icon" type="image/png" href="/static/images/logo.png"/>
+
+<style>
+/* Scoped CSS for Blog Detail Page to prevent affecting Header/Footer */
+.blog-detail-page {
+    font-family: 'Lato', sans-serif;
+    background: #f4f7f6;
+    padding: 60px 20px;
+    min-height: 80vh;
+}
+
+.blog-detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.blog-detail-container .blog-image {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.blog-detail-container h1 {
+    font-size: 36px;
+    color: #0a2540;
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.blog-detail-container .blog-content {
+    font-size: 17px;
+    color: #4a5568;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* Ensure blog content paragraphs don't inherit weird margins */
+.blog-detail-container .blog-content p {
+    margin-bottom: 15px;
+}
+
+.blog-detail-container .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #091c47, #0d2b7a);
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.blog-detail-container .back-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(9, 28, 71, 0.3);
+}
+
+@media (max-width: 768px) {
+    .blog-detail-page {
+        padding: 30px 15px;
+    }
+    .blog-detail-container {
+        padding: 20px;
+    }
+    .blog-detail-container .blog-image {
+        height: 250px;
+    }
+    .blog-detail-container h1 {
+        font-size: 26px;
+    }
+    .blog-detail-container .blog-content {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<div class="blog-detail-page">
+    <div class="blog-detail-container">
+        {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-image">
+        {% endif %}
+        
+        <h1>{{ blog.title }}</h1>
+        
+        <div class="blog-content">
+            {{ blog.description|linebreaks }}
+        </div>
+        
+        <a href="/" class="back-link">
+            ← Back to Blogs
+        </a>
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+</body>
+</html>

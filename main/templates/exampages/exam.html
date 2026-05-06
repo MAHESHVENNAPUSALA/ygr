@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Exam</title>
+  <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+<style>
+body { margin:0; font-family: Arial,sans-serif; display:flex; background:#f2f2f2; }
+#startExam { margin:150px auto; padding:15px 25px; font-size:22px; cursor:pointer; background:#28a745; color:white; border:none; border-radius:8px; display:block; }
+.sidebar { width:280px; background:white; padding:20px; box-shadow:2px 0 10px rgba(0,0,0,0.1); display:none; margin-left:30px; margin-top:100px; height:200%; }
+#userList { list-style:none; padding:0; }
+.user-item { text-align:center; margin-bottom:20px; }
+.user-item img { width:100px; height:100px; border-radius:50%; border:2px solid #000; object-fit:cover; margin-bottom:8px; }
+.user-info .username { display:block; font-size:18px; font-weight:bold; }
+.user-info .rollno { display:block; font-size:16px; color:#555; }
+.sidebar button { width:100%; padding:10px; margin-bottom:5px; font-size:17px; cursor:pointer; border:none; background:#007bff; color:white; border-radius:5px; }
+.question-numbers { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin:10px 0 15px; display:none; }
+.q-circle { width:28px; height:28px; border-radius:50%; text-align:center; line-height:28px; font-size:13px; font-weight:bold; cursor:pointer; background:white; color:black; border:1px solid black; }
+.q-circle.seen { background:red; color:black; }
+.q-circle.answered { background:green; color:white; }
+.content { flex:1; padding:30px; display:none; }
+.question { background:white; padding:25px; border-radius:8px; font-size:22px; display:none; margin-top:70px; }
+label { display:block; margin:10px 0; cursor:pointer; font-size:20px; }
+.nav-buttons { margin-top:20px; display:none; }
+.nav-buttons button { padding:10px 20px; font-size:18px; margin-left:50px; }
+#timerBox { position:fixed; top:15px; right:15px; background:black; color:white; padding:10px 18px; font-size:20px; font-weight:bold; border-radius:8px; display:none; z-index:1000; }
+</style>
+</head>
+<body>
+
+<!-- START EXAM BUTTON -->
+<button id="startExam">Start Exam</button>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+   <ul id="userList">
+    <li class="user-item">
+        {% if request.user.is_authenticated %}
+            {% if request.user.photo %}
+                <img src="{{ request.user.photo.url }}" alt="User Photo">
+            {% else %}
+                <img src="{% static 'default_user.png' %}" alt="Default User Photo">
+            {% endif %}
+            <div class="user-info">
+                <strong class="username">{{ request.user.username }}</strong>
+                <span class="rollno">{{ request.user.roll_no }}</span>
+            </div>
+        {% else %}
+            <li>Please login to see your profile</li>
+        {% endif %}
+    </li>
+</ul>
+
+<hr>
+
+<button onclick="toggleSection(0)">Aptitude</button>
+<div id="numbers-attitude" class="question-numbers"></div>
+
+<button onclick="toggleSection(20)">Reasoning</button>
+<div id="numbers-reasoning" class="question-numbers"></div>
+
+<button onclick="toggleSection(40)">Technical</button>
+<div id="numbers-technical" class="question-numbers"></div>
+
+<div style="text-align:center; margin-top: 20px;">
+    <button id="submitBtn" style="background:#28a745; color:white; padding:12px 25px; font-size:18px; border:none; border-radius:8px; cursor:pointer;">
+        Submit
+    </button>
+</div>
+</div>
+
+<div id="timerBox">
+    Time Left: <span id="time">60:00</span>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+    <ul>
+    {% for question in questions %}
+    <li class="question">
+        <strong>{{ question.question_text }}</strong><br><br>
+        <label>
+            <input type="radio" name="question_{{ question.id }}" value="A" onchange="markAnswered(currentIndex)">
+            A. {{ question.option_a }}
+        </label>
+        <label>
+            <input type="radio" name="question_{{ question.id }}" value="B" onchange="markAnswered(currentIndex)">
+            B. {{ question.option_b }}
+        </label>
+        <label>
+            <input type="radio" name="question_{{ question.id }}" value="C" onchange="markAnswered(currentIndex)">
+            C. {{ question.option_c }}
+        </label>
+        <label>
+            <input type="radio" name="question_{{ question.id }}" value="D" onchange="markAnswered(currentIndex)">
+            D. {{ question.option_d }}
+        </label>
+    </li>
+    {% endfor %}
+    </ul>
+
+    <div class="nav-buttons" id="navButtons">
+        <button onclick="prevQuestion()">Previous</button>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+</div>
+
+<!-- CAMERA -->
+<div id="cameraContainer" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: 150px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1001;
+    background: #000;">
+    <video id="cameraVideo" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+</div>
+
+
+<script>
+const questions = document.querySelectorAll('.question');
+const navButtons = document.getElementById('navButtons');
+const sections = [0,20,40]; 
+let sectionIndex=0, startIndex=0, endIndex=0, currentIndex=0;
+let activeBox=null;
+let totalTime=60*60; // 60 minutes
+let timerInterval;
+
+// START EXAM
+document.getElementById('startExam').addEventListener('click', ()=>{
+    enterFullScreen();
+    document.getElementById('startExam').style.display='none';
+    document.querySelector('.sidebar').style.display='block';
+    document.querySelector('.content').style.display='block';
+    startTimer();
+    toggleSection(0);
+});
+
+// TIMER
+function startTimer(){
+    const timeDisplay=document.getElementById('time');
+    document.getElementById('timerBox').style.display='block';
+    timerInterval=setInterval(()=>{
+        let minutes=Math.floor(totalTime/60);
+        let seconds=totalTime%60;
+        timeDisplay.textContent=`${minutes}:${seconds<10?'0'+seconds:seconds}`;
+        if(totalTime<=0){
+            endExam("Time over! Exam submitted automatically.");
+        }
+        totalTime--;
+    },1000);
+}
+
+// FULLSCREEN
+function enterFullScreen(){
+    let el=document.documentElement;
+    if(el.requestFullscreen) el.requestFullscreen();
+    else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.msRequestFullscreen) el.msRequestFullscreen();
+}
+
+// ESC key detection
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+        endExam("You pressed ESC! Exam submitted automatically.");
+    }
+});
+
+// Full-screen exit detection
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        endExam("You exited full-screen! Exam submitted automatically.");
+    }
+});
+
+// QUESTIONS LOGIC
+function hideAllBoxes(){document.querySelectorAll('.question-numbers').forEach(box=>box.style.display='none');}
+function toggleSection(start){
+    let box;
+    if(start===0) box=document.getElementById('numbers-attitude');
+    if(start===20) box=document.getElementById('numbers-reasoning');
+    if(start===40) box=document.getElementById('numbers-technical');
+
+    hideAllBoxes();
+    box.style.display='grid';
+    navButtons.style.display='block';
+    activeBox=box;
+
+    startIndex=start;
+    endIndex=Math.min(start+20,questions.length);
+    currentIndex=startIndex;
+
+    box.innerHTML='';
+for(let i=startIndex;i<endIndex;i++){
+    const div = document.createElement('div');
+    div.className = 'q-circle';
+    div.innerText = i - startIndex + 1;
+    div.onclick = () => showQuestion(i);
+
+    // ✅ CHECK IF ALREADY ANSWERED
+    const checked = questions[i].querySelector('input[type="radio"]:checked');
+    if (checked) {
+        div.classList.add('answered'); // 🟢 restore green
+    }
+
+    box.appendChild(div);
+}
+
+    showQuestion(currentIndex);
+}
+
+function showQuestion(index){
+    currentIndex=index;
+    questions.forEach((q,i)=>q.style.display=(i===index)?'block':'none');
+    const circleIndex=index-startIndex;
+    if(activeBox && circleIndex>=0 && circleIndex<20){
+        const circle=activeBox.children[circleIndex];
+        if(!circle.classList.contains('answered') && !circle.classList.contains('seen')){
+            circle.classList.add('seen');
+        }
+    }
+}
+
+function nextQuestion(){if(currentIndex<endIndex-1){showQuestion(currentIndex+1);}else{sectionIndex++; if(sectionIndex<sections.length) toggleSection(sections[sectionIndex]); else showSubmitOnly();}}
+function prevQuestion(){if(currentIndex>startIndex) showQuestion(currentIndex-1);}
+function markAnswered(index){
+    if(!activeBox) return;
+
+    const circleIndex = index - startIndex;
+    if(circleIndex < 0 || circleIndex >= activeBox.children.length) return;
+
+    const circle = activeBox.children[circleIndex];
+
+    // Mark green
+    circle.classList.remove('seen');
+    circle.classList.add('answered');
+
+    // Save answer
+    const questionElement = questions[index];
+    const selectedRadio = questionElement.querySelector('input[type="radio"]:checked');
+
+    if(selectedRadio){
+        const question_id = selectedRadio.name.split('_')[1];
+        const selected_option = selectedRadio.value;
+
+        fetch("{% url 'save_answer' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `question_id=${question_id}&selected_option=${selected_option}`
+        });
+    }
+}
+
+function showSubmitOnly(){
+    questions.forEach(q=>q.style.display='none');
+    navButtons.style.display='none';
+    if(activeBox) activeBox.style.display='none';
+    document.getElementById('submitBtn').style.display='inline-block';
+}
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+    endExam("You submitted the exam successfully!");
+});
+
+// END EXAM
+function endExam(message){
+    clearInterval(timerInterval);  // stop timer
+    document.querySelector('.content').innerHTML = `<h2 style="color:red;text-align:center;margin-top:50px;">${message}</h2>`;
+    document.getElementById('submitBtn').style.display = 'none';
+    navButtons.style.display = 'none';
+    if(activeBox) activeBox.style.display = 'none';
+
+    // Disable inputs
+    document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+
+    setTimeout(()=>{ window.location.href="{% url 'exam_success' %}"; }, 2000);
+}
+
+// CAMERA
+const video = document.getElementById('cameraVideo');
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+.then(stream => { video.srcObject = stream; })
+.catch(err => {
+    const container = document.getElementById('cameraContainer');
+    container.innerHTML = '<p style="color:red; text-align:center; padding:10px;">Camera access denied</p>';
+});
+</script>
+
+</body>
+</html>

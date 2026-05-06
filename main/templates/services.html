@@ -1,0 +1,1215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% if service_type == "web" %}
+<title>Website Development | Best IT Company in India</title>
+<meta name="keywords" content="Web Development, IT Company, Website Design">
+<meta name="description" content="Professional website development services, responsive and SEO-friendly websites for businesses.">
+{% elif service_type == "webapp" %}
+<title>Web Applications | Software Development Company</title>
+<meta name="keywords" content="Web Applications, IT Company, Software Solutions">
+<meta name="description" content="Custom web application development, scalable and secure solutions for businesses.">
+{% elif service_type == "mobile" %}
+<title>Mobile App Development | Best IT Solutions</title>
+<meta name="keywords" content="Mobile App, Android, iOS, IT Company">
+<meta name="description" content="High-quality mobile app development for Android and iOS platforms, scalable and user-friendly.">
+{% elif service_type == "dm" %}
+<title>Digital Marketing Services | Best IT Company</title>
+<meta name="keywords" content="Digital Marketing, SEO, Social Media">
+<meta name="description" content="Result-driven digital marketing services to boost your online presence and generate leads.">
+{% elif service_type == "uiux" %}
+<title>UI/UX Design | Best IT Company</title>
+<meta name="keywords" content="UI Design, UX Design, Web & Mobile">
+<meta name="description" content="User-centric UI/UX design services for web and mobile applications, enhancing engagement.">
+{% elif service_type == "testing" %}
+<title>Software Testing Services | IT Company</title>
+<meta name="keywords" content="Software Testing, QA, Automation, Manual Testing">
+<meta name="description" content="Comprehensive software testing services ensuring high-quality, reliable, and secure applications.">
+{% elif service_type == "support" %}
+<title>IT Support & Maintenance | Best IT Company</title>
+<meta name="keywords" content="IT Support, Maintenance, IT Services">
+<meta name="description" content="24/7 IT support and maintenance services to ensure smooth and secure business operations.">
+{% elif service_type == "intern" %}
+<title>Internships & Training | IT Training Institute</title>
+<meta name="keywords" content="IT Training, Internships, Skill Development">
+<meta name="description" content="Industry-focused IT internships and training programs with real-time projects and certification.">
+{% else %}
+<title>Best IT Company in India | Software & IT Services</title>
+<meta name="keywords" content="IT Company, Software, Web, Mobile, Training">
+<meta name="description" content="Leading IT company offering software development, web & mobile apps, and professional IT training.">
+{% endif %}
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="icon" type="image/png" href="/static/images/logo.png"/>
+  <style>
+/* ================= GLOBAL STYLES ================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    background-color: #f5f6fa;
+    color: #333;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+    color: #092a49;
+    margin: 0 0 15px 0;
+}
+
+p {
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+}
+
+/* ================= HERO SECTION ================= */
+.service-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.service-hero .service-image {
+    flex: none;
+    width: 100%;
+    text-align: center;
+}
+
+.service-hero .service-image img {
+    width: 100%;
+    max-width: 1360px;
+    height: auto;
+    border-radius: 12px;
+   
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.service-hero .service-header {
+    flex: 1;
+    min-width: 300px;
+}
+
+.service-hero .service-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.service-hero .service-header p {
+    font-size: 16px;
+}
+
+/* ================= SERVICE DETAILS ================= */
+
+.service-details {
+    max-width: 1400px;
+    margin: 40px auto 60px auto;
+    padding: 0 20px;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 30px 25px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+/* one card → 3 columns */
+.service-card.three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.service-card .column {
+    padding: 10px;
+}
+
+.service-card .column:not(:last-child) {
+    border-right: 1px solid #eee;
+}
+
+.service-card .column h4 {
+    font-size: 22px;
+    color: #092a49;
+    margin-bottom: 12px;
+}
+
+.service-card .column ul {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+}
+
+.service-card .column ul li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* ================= PRICING CARDS ================= */
+
+.plans-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin: 20px 40px;
+    padding: 0 10px;
+    align-items: stretch;
+}
+
+.plan-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 32%; /* 3 in a row */
+    min-width: 300px;
+}
+
+.plan-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+ 
+
+.plan-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.plan-feature::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #092a49;
+    font-weight: bold;
+}
+
+.plan-btn {
+    margin-top: auto;
+    padding: 12px 0;
+    border: none;
+     background: linear-gradient(135deg, #0D3B6C, #095191);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.plan-btn:hover {
+    opacity: 0.95;
+}
+
+/* ================= BREAKPOINTS ================= */
+
+/* Laptop & Desktop */
+@media (max-width: 1200px) {
+    .service-details {
+        max-width: 1000px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .plan-wrapper {
+        width: 48%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .service-card.three-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card .column:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .plan-wrapper {
+        width: 100%;
+    }
+
+    .service-card .column h4 {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .service-card .column ul li {
+        font-size: 14px;
+    }
+    .service-hero {
+        padding: 20px;
+    }
+}
+
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+.student-card {
+    background: #f5f6f8;
+    border-radius: 16px;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+}
+
+.student-card img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.student-card h3 {
+    font-size: 20px;
+    color: #0b2545;
+    margin-bottom: 5px;
+}
+
+.student-card p {
+    font-size: 16px;
+    color: #666;
+}
+</style>
+</head>
+
+<body class="page">
+{% include 'header.html' %}
+
+{% if service_type == "web" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/web.png' %}" alt="Website Development Services in Hyderabad India">
+    </div>
+   
+    
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">
+    Website Development Pricing 
+</h2>
+
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+    Affordable, professional, and scalable <strong>website development packages in Hyderabad</strong> designed for startups, businesses, and e-commerce platforms.
+</p>
+
+<div class="plans-container">
+
+    <!-- Startup Website -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h4>Startup Website Package</h4>
+            <div class="plan-feature">Up to 5 custom-designed pages</div>
+            <div class="plan-feature">Basic logo design</div>
+            <div class="plan-feature">Free domain (1st year) & hosting with SSL certificate</div>
+            <div class="plan-feature">WhatsApp chat & social media integration</div>
+            <div class="plan-feature">Mobile-responsive & cross-browser compatible design</div>
+            <div class="plan-feature">Blog OR Testimonials section</div>
+            <div class="plan-feature">SEO-friendly website structure</div>
+            <div class="plan-feature">CMS for easy content updates</div>
+            <div class="plan-feature">Delivery: 6–7 Working Days</div>
+
+            <button class="plan-btn">Pay Now ₹16,999</button>
+        </div>
+    </div>
+
+    <!-- Business Website -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h4>Business Website Package</h4>
+            <div class="plan-feature">Up to 10 professionally designed pages</div>
+            <div class="plan-feature">Professional logo design</div>
+            <div class="plan-feature">Free domain (1st year) & hosting with SSL certificate</div>
+            <div class="plan-feature">2 professional business email accounts</div>
+            <div class="plan-feature">Blog, Gallery & Testimonials integration</div>
+            <div class="plan-feature">Chat support & social media integration</div>
+            <div class="plan-feature">SEO-optimized structure</div>
+            <div class="plan-feature">Fully responsive, fast-loading design</div>
+            <div class="plan-feature">CMS integration for content management</div>
+            <div class="plan-feature">Delivery: 10–12 Working Days</div>
+
+            <button class="plan-btn">Pay Now ₹27,999</button>
+        </div>
+    </div>
+
+    <!-- E-Commerce Website -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h4>E-Commerce Website Package</h4>
+            <div class="plan-feature">Up to 30 products</div>
+            <div class="plan-feature">Custom logo design</div>
+            <div class="plan-feature">Free domain & hosting (1st year) with SSL security</div>
+            <div class="plan-feature">Product categories & filters</div>
+            <div class="plan-feature">Shopping cart & order management</div>
+            <div class="plan-feature">Secure payment gateway integration</div>
+            <div class="plan-feature">Chat & social media integration</div>
+            <div class="plan-feature">Mobile-friendly, SEO-optimized design</div>
+            <div class="plan-feature">Delivery: 15–18 Working Days</div>
+
+            <button class="plan-btn">Pay Now ₹39,999</button>
+        </div>
+    </div>
+
+</div>
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>What’s Included in All Packages</h4>
+            <ul>
+                <li>Responsive design for all devices</li>
+                <li>Custom UI aligned with your brand</li>
+                <li>SEO-friendly website structure</li>
+                <li>CMS integration</li>
+                <li>Secure & fast-loading websites</li>
+                <li>Cross-browser compatibility</li>
+                <li>Modern UI/UX design standards</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Optional Add-On Services</h4>
+            <ul>
+                <li>Advanced SEO services & keyword optimization</li>
+                <li>Website content writing & blog creation</li>
+                <li>Speed optimization & Core Web Vitals improvement</li>
+                <li>Annual maintenance & support (AMC)</li>
+                <li>Additional pages or product uploads</li>
+                <li>Digital marketing (Google Ads, Facebook Ads)</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Top IT services company in Hyderabad & India</li>
+                <li>Affordable pricing with premium quality</li>
+                <li>Transparent process & on-time delivery</li>
+                <li>Global client support (USA, UK, Canada)</li>
+                <li>Scalable solutions for long-term growth</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- web app -->
+
+{% elif service_type == "webapp" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/wds.jpg' %}" alt="Web Applications">
+    </div>
+ 
+    
+</section>
+<h2 style="text-align:center;margin:40px 0 10px;">Web Application Development</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Secure, scalable, and high-performance web applications tailored to your business needs.
+</p>
+
+<div class="plans-container">
+
+    <!-- Basic Web App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Basic Web Application</h3>
+            <div class="plan-feature">Custom web application development</div>
+            <div class="plan-feature">User authentication (login / signup)</div>
+            <div class="plan-feature">Admin dashboard</div>
+            <div class="plan-feature">Basic database integration</div>
+            <div class="plan-feature">Responsive UI (desktop & mobile)</div>
+            <div class="plan-feature">Secure coding standards</div>
+            <div class="plan-feature">Basic deployment & hosting setup</div>
+            <div class="plan-feature">1 month post-launch support</div>
+            <div class="plan-feature">Delivery: 15–20 Working Days</div>
+            <button class="plan-btn">Pay Now ₹49,999</button>
+        </div>
+    </div>
+
+    <!-- Business Web App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Business Web Application</h3>
+            <div class="plan-feature">Custom-designed scalable web app</div>
+            <div class="plan-feature">User roles & permissions</div>
+            <div class="plan-feature">Advanced admin dashboard</div>
+            <div class="plan-feature">Database & API integration</div>
+            <div class="plan-feature">Secure authentication & data handling</div>
+            <div class="plan-feature">Performance-optimized UI</div>
+            <div class="plan-feature">Basic SEO & optimization</div>
+            <div class="plan-feature">Cloud / server deployment</div>
+            <div class="plan-feature">2 months post-launch support</div>
+            <div class="plan-feature">Delivery: 25–30 Working Days</div>
+            <button class="plan-btn">Pay Now ₹89,999</button>
+        </div>
+    </div>
+
+    <!-- Enterprise Web App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Enterprise Web Application</h3>
+            <div class="plan-feature">Fully customized enterprise app</div>
+            <div class="plan-feature">Advanced user roles & access control</div>
+            <div class="plan-feature">Complex workflows & automation</div>
+            <div class="plan-feature">Third-party API integrations</div>
+            <div class="plan-feature">High-security architecture</div>
+            <div class="plan-feature">Scalable & cloud-ready infrastructure</div>
+            <div class="plan-feature">Performance optimization & testing</div>
+            <div class="plan-feature">Monitoring & documentation</div>
+            <div class="plan-feature">3 months post-launch support</div>
+            <div class="plan-feature">Delivery: 40–60 Working Days</div>
+            <button class="plan-btn">Pay Now ₹1,49,999+</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Technologies We Work With</h4>
+            <ul>
+                <li>Frontend: HTML, CSS, JavaScript, React</li>
+                <li>Backend: Node.js, PHP, Python, Java</li>
+                <li>Databases: MySQL, MongoDB</li>
+                <li>Cloud & Hosting: AWS, DigitalOcean, GoDaddy</li>
+                <li>Security: SSL, role-based access</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Optional Add-Ons</h4>
+            <ul>
+                <li>Mobile app (Android / iOS)</li>
+                <li>Payment gateway integration</li>
+                <li>Advanced analytics & reporting</li>
+                <li>API development</li>
+                <li>AMC & maintenance support</li>
+                <li>Cloud scaling & DevOps setup</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Scalable & secure development</li>
+                <li>Market-level pricing</li>
+                <li>Clean UI & strong architecture</li>
+                <li>Transparent timelines</li>
+                <li>Business-focused solutions</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- mobile app development  -->
+
+{% elif service_type == "mobile" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/mp.png' %}" alt="Mobile App Development">
+    </div>
+ 
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">Mobile App Development</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+High-performance, scalable mobile applications for startups, businesses, and enterprises.
+</p>
+<div class="plans-container">
+
+    <!-- Basic Mobile App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Basic Mobile App</h3>
+            <div class="plan-feature">Android or iOS app development</div>
+            <div class="plan-feature">Custom UI / UX design</div>
+            <div class="plan-feature">User authentication (login / signup)</div>
+            <div class="plan-feature">Basic admin panel (web-based)</div>
+            <div class="plan-feature">API integration</div>
+            <div class="plan-feature">Secure coding standards</div>
+            <div class="plan-feature">App testing & deployment support</div>
+            <div class="plan-feature">1 month post-launch support</div>
+            <div class="plan-feature">Delivery: 20–25 Working Days</div>
+            <button class="plan-btn">Pay Now ₹69,999</button>
+        </div>
+    </div>
+
+    <!-- Business Mobile App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Business Mobile App</h3>
+            <div class="plan-feature">Android & iOS app (Flutter / React Native)</div>
+            <div class="plan-feature">Custom UI / UX with brand alignment</div>
+            <div class="plan-feature">User roles & permissions</div>
+            <div class="plan-feature">Advanced admin dashboard</div>
+            <div class="plan-feature">Database & API integration</div>
+            <div class="plan-feature">Push notifications</div>
+            <div class="plan-feature">Performance optimization & testing</div>
+            <div class="plan-feature">App Store & Play Store deployment</div>
+            <div class="plan-feature">2 months post-launch support</div>
+            <div class="plan-feature">Delivery: 35–45 Working Days</div>
+            <button class="plan-btn">Pay Now ₹1,29,999</button>
+        </div>
+    </div>
+
+    <!-- Enterprise Mobile App -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Enterprise Mobile App</h3>
+            <div class="plan-feature">Fully custom Android & iOS apps</div>
+            <div class="plan-feature">Advanced UI / UX & animations</div>
+            <div class="plan-feature">Role-based access control</div>
+            <div class="plan-feature">Complex workflows & integrations</div>
+            <div class="plan-feature">High-level security & data protection</div>
+            <div class="plan-feature">Scalable backend & cloud integration</div>
+            <div class="plan-feature">Performance, load & security testing</div>
+            <div class="plan-feature">App documentation & monitoring</div>
+            <div class="plan-feature">3 months post-launch support</div>
+            <div class="plan-feature">Delivery: 60–90 Working Days</div>
+            <button class="plan-btn">Pay Now ₹2,49,999+</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Technologies We Use</h4>
+            <ul>
+                <li>Android (Kotlin / Java)</li>
+                <li>iOS (Swift)</li>
+                <li>Flutter, React Native</li>
+                <li>Backend: Node.js, PHP, Python</li>
+                <li>Databases: MySQL, MongoDB</li>
+                <li>Cloud: AWS, Firebase</li>
+                <li>Security: SSL, secure APIs, encryption</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Optional Add-On Services</h4>
+            <ul>
+                <li>Payment gateway integration</li>
+                <li>In-app chat & messaging</li>
+                <li>Third-party API integrations</li>
+                <li>Advanced analytics & reporting</li>
+                <li>App maintenance & AMC</li>
+                <li>App marketing & ASO support</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Market-competitive pricing</li>
+                <li>Clean UI & strong performance</li>
+                <li>Scalable architecture</li>
+                <li>Transparent timelines</li>
+                <li>End-to-end development support</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+<!-- digital marketing  -->
+
+{% elif service_type == "dm" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/dmmm.jpg.jpeg' %}" alt="Digital Marketing Services">
+    </div>
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">Digital Marketing Packages</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Smart digital marketing solutions to grow your brand visibility, traffic, and conversions.
+</p>
+
+<div class="plans-container">
+
+    <!-- Starter Plan -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Starter Plan</h3>
+            <div class="plan-feature">Basic SEO (on-page)</div>
+            <div class="plan-feature">Social media management (2 platforms)</div>
+            <div class="plan-feature">8 posts per month</div>
+            <div class="plan-feature">Monthly performance report</div>
+            <button class="plan-btn">Pay Now ₹9,999 / Month</button>
+        </div>
+    </div>
+
+    <!-- Growth Plan -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Growth Plan</h3>
+            <div class="plan-feature">Advanced SEO (on-page + off-page)</div>
+            <div class="plan-feature">Social media management (3 platforms)</div>
+            <div class="plan-feature">16 posts per month</div>
+            <div class="plan-feature">Google Ads setup</div>
+            <div class="plan-feature">Monthly analytics report</div>
+            <button class="plan-btn">Pay Now ₹19,999 / Month</button>
+        </div>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Premium Plan</h3>
+            <div class="plan-feature">Complete SEO optimization</div>
+            <div class="plan-feature">Social media management (4+ platforms)</div>
+            <div class="plan-feature">Paid ads management (Google & Meta)</div>
+            <div class="plan-feature">Content marketing strategy</div>
+            <div class="plan-feature">Weekly performance reports</div>
+            <button class="plan-btn">Pay Now ₹39,999 / Month</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Marketing Solutions Include</h4>
+            <ul>
+                <li>Search Engine Optimization (SEO) to improve rankings and organic visibility.</li>
+                <li>Social Media Marketing to build brand awareness and audience engagement.</li>
+                <li>Google Ads & PPC campaigns for instant traffic and lead generation.</li>
+                <li>Content marketing (blogs, creatives & brand messaging).</li>
+                <li>Lead generation strategies focused on conversions.</li>
+                <li>Analytics, reporting & performance optimization.</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Platforms & Channels</h4>
+            <ul>
+                <li>Google Search, Display & YouTube Ads</li>
+                <li>Meta Ads (Facebook & Instagram)</li>
+                <li>LinkedIn & Twitter marketing</li>
+                <li>Email marketing automation</li>
+                <li>Local SEO & Google My Business</li>
+                <li>Influencer & brand collaborations</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Market-competitive pricing</li>
+                <li>Result-driven marketing strategies</li>
+                <li>Transparent timelines & reporting</li>
+                <li>Experienced digital marketing team</li>
+                <li>ROI-focused campaign execution</li>
+                <li>End-to-end growth support</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- ui & ux design -->
+
+{% elif service_type == "uiux" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/ui.png' %}" alt="UI/UX Design">
+    </div>
+ 
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">UI / UX Design Packages</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Professional UI / UX design services to enhance user experience and brand identity.
+</p>
+<div class="plans-container">
+
+    <!-- Starter -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Starter</h3>
+            <div class="plan-feature">Up to 5 screens</div>
+            <div class="plan-feature">Wireframes</div>
+            <div class="plan-feature">Basic UI design</div>
+            <button class="plan-btn">Pay Now ₹14,999</button>
+        </div>
+    </div>
+
+    <!-- Professional -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Professional</h3>
+            <div class="plan-feature">Up to 12 screens</div>
+            <div class="plan-feature">UX research & wireframes</div>
+            <div class="plan-feature">High-fidelity UI design</div>
+            <div class="plan-feature">Interactive prototype</div>
+            <button class="plan-btn">Pay Now ₹29,999</button>
+        </div>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Premium</h3>
+            <div class="plan-feature">Complete app / website UI</div>
+            <div class="plan-feature">UX research & user flows</div>
+            <div class="plan-feature">Design system & style guide</div>
+            <div class="plan-feature">Developer handoff</div>
+            <button class="plan-btn">Pay Now ₹59,999</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Design Services Include</h4>
+            <ul>
+                <li>User research and persona creation.</li>
+                <li>Wireframes and high-fidelity UI designs.</li>
+                <li>Interactive prototypes for validation.</li>
+                <li>UI / UX design for web & mobile apps.</li>
+                <li>Accessibility-focused design optimization.</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Design Process</h4>
+            <ul>
+                <li>Requirement gathering & analysis</li>
+                <li>UX research & information architecture</li>
+                <li>Wireframing & layout planning</li>
+                <li>High-fidelity UI design creation</li>
+                <li>Prototype testing & iteration</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Clean and modern design standards</li>
+                <li>User-centered UX approach</li>
+                <li>Brand-aligned visual identity</li>
+                <li>Fast delivery timelines</li>
+                <li>Developer-friendly handoff</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- software testing  -->
+
+{% elif service_type == "testing" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/st.webp' %}" alt="Software Testing Services">
+    </div>
+ 
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">Software Testing Packages</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Ensure quality, performance, and security with our professional software testing services.
+</p>
+
+<div class="plans-container">
+
+    <!-- Starter -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Starter</h3>
+            <div class="plan-feature">Manual testing</div>
+            <div class="plan-feature">Functional testing</div>
+            <div class="plan-feature">Bug report</div>
+            <button class="plan-btn">Get Started ₹12,999</button>
+        </div>
+    </div>
+
+    <!-- Standard -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Standard</h3>
+            <div class="plan-feature">Functional + regression testing</div>
+            <div class="plan-feature">UI / UX testing</div>
+            <div class="plan-feature">Test case documentation</div>
+            <button class="plan-btn">Get Started ₹24,999</button>
+        </div>
+    </div>
+
+    <!-- Advanced -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Advanced</h3>
+            <div class="plan-feature">End-to-end testing</div>
+            <div class="plan-feature">Performance & load testing</div>
+            <div class="plan-feature">Security testing</div>
+            <div class="plan-feature">Detailed QA reports</div>
+            <button class="plan-btn">Get Started ₹44,999</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Testing Services Include</h4>
+            <ul>
+                <li>Manual and automated testing for web and mobile apps</li>
+                <li>Functional, regression, and performance testing</li>
+                <li>Bug tracking, reporting, and verification</li>
+                <li>QA aligned with industry standards</li>
+                <li>Stable release support</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Quality Assurance Process</h4>
+            <ul>
+                <li>Requirement analysis</li>
+                <li>Test planning & strategy</li>
+                <li>Test case creation</li>
+                <li>Execution & validation</li>
+                <li>Continuous improvement</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Experienced QA engineers</li>
+                <li>Market-competitive pricing</li>
+                <li>Clean documentation</li>
+                <li>Reliable delivery timelines</li>
+                <li>Quality-focused approach</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- IT SUPPORT & MAINTENANCE -->
+
+{% elif service_type == "support" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/im.webp' %}" alt="IT Support & Maintenance Services">
+    </div>
+
+</section>
+
+<h2 style="text-align:center;margin:40px 0 10px;">IT Support & Maintenance Packages</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Reliable IT support and maintenance services to keep your systems secure, fast, and always available.
+</p>
+
+<div class="plans-container">
+
+    <!-- Basic -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Basic</h3>
+            <div class="plan-feature">Website maintenance</div>
+            <div class="plan-feature">Basic updates & backups</div>
+            <div class="plan-feature">Email support</div>
+            <button class="plan-btn">Pay Now ₹7,999 / Month</button>
+        </div>
+    </div>
+
+    <!-- Business -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Business</h3>
+            <div class="plan-feature">Website & app maintenance</div>
+            <div class="plan-feature">Security updates</div>
+            <div class="plan-feature">Performance monitoring</div>
+            <div class="plan-feature">Priority support</div>
+            <button class="plan-btn">Pay Now ₹14,999 / Month</button>
+        </div>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Enterprise</h3>
+            <div class="plan-feature">Full IT support</div>
+            <div class="plan-feature">Server & cloud management</div>
+            <div class="plan-feature">24/7 monitoring</div>
+            <div class="plan-feature">Dedicated support</div>
+            <button class="plan-btn">Pay Now ₹29,999 / Month</button>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Support Services Include</h4>
+            <ul>
+                <li>Website and application maintenance</li>
+                <li>Regular updates and backups</li>
+                <li>Security patch management</li>
+                <li>Performance and uptime monitoring</li>
+                <li>Issue resolution and troubleshooting</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Infrastructure Management</h4>
+            <ul>
+                <li>Server and cloud environment support</li>
+                <li>Database monitoring and optimization</li>
+                <li>Security audits and hardening</li>
+                <li>System health checks</li>
+                <li>Disaster recovery planning</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>24/7 professional IT support</li>
+                <li>Market-competitive pricing</li>
+                <li>Fast response and resolution</li>
+                <li>Secure and scalable solutions</li>
+                <li>Business-focused IT management</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- INTERNSHIPS & TRAINING -->
+
+{% elif service_type == "intern" %}
+<section class="service-hero">
+    <div class="service-image">
+        <img src="{% static 'images/internship.png' %}" alt="Internships & Training Programs">
+    </div>
+  
+</section>
+
+<br>
+    <h2 style="margin-left: 600px;">OUR Trained Students</h2>
+
+<div class="students-grid">
+
+
+
+    <div class="student-card">
+        <img src="/media/team/tharun.jpeg">
+        <h3>Tharun</h3>
+        <p>JAVA Intern</p>
+    </div>
+
+    <div class="student-card">
+        <img src="/media/team/reddy_odFoq3p.jpeg">
+        <h3>Himesh Reddy</h3>
+        <p>JAVA Intern</p>
+    </div>
+
+    <div class="student-card">
+        <img src="/media/team/pavan.jpeg">
+        <h3>Pavan</h3>
+        <p>JAVA Intern</p>
+    </div>
+
+    <div class="student-card">
+        <img src="/media/team/vamsi.jpeg">
+        <h3>Vamsi</h3>
+        <p>JAVA Intern</p>
+    </div>
+
+    <div class="student-card">
+        <img src="/media/team/sai.nikilesh.jpg.jpeg">
+        <h3>Nikilesh</h3>
+        <p>PYTHON Intern</p>
+    </div>
+
+    <div class="student-card">
+        <img src="/media/team/anil.kumar.jpg.jpeg">
+        <h3>Anil Kumar</h3>
+        <p>java Intern</p>
+    </div>
+
+</div>
+
+
+
+
+
+<h2 style="text-align:center;margin:40px 0 10px;">Internships & Training Programs</h2>
+<p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+Industry-focused internship and training programs designed to build real-world skills and career readiness.
+</p>
+<div class="plans-container">
+
+    <!-- Starter -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Starter (Beginner)</h3>
+            <div class="plan-feature">Basics & fundamentals</div>
+            <div class="plan-feature">Recorded sessions</div>
+            <div class="plan-feature">Assignments</div>
+
+            <p>Base Price: ₹4,999</p>
+            <p>GST (18%): ₹900</p>
+            <p><strong>Total: ₹5,899</strong></p>
+
+            <a href="{% url 'registers' %}?plan=starter&amount=4999">
+                <button>Enroll Now ₹5,899</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Professional -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Professional</h3>
+            <div class="plan-feature">Live training</div>
+            <div class="plan-feature">Hands-on projects</div>
+            <div class="plan-feature">Certification</div>
+
+            <p>Base Price: ₹14,999</p>
+            <p>GST (18%): ₹2,700</p>
+            <p><strong>Total: ₹17,699</strong></p>
+
+            <a href="{% url 'registers' %}?plan=pro&amount=14999">
+                <button>Enroll Now ₹17,699</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Advanced -->
+    <div class="plan-wrapper">
+        <div class="plan-card">
+            <h3>Advanced</h3>
+            <div class="plan-feature">Live projects</div>
+            <div class="plan-feature">Mentorship</div>
+            <div class="plan-feature">Interview preparation</div>
+            <div class="plan-feature">Placement assistance</div>
+
+            <p>Base Price: ₹24,999</p>
+            <p>GST (18%): ₹4,500</p>
+            <p><strong>Total: ₹29,499</strong></p>
+
+            <a href="{% url 'registers' %}?plan=advanced&amount=24999">
+                <button>Enroll Now ₹29,499</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<section class="service-details">
+    <div class="service-card three-columns">
+
+        <div class="column">
+            <h4>Program Includes</h4>
+            <ul>
+                <li>Hands-on IT training with real-time tools</li>
+                <li>Industry-relevant live projects</li>
+                <li>Internship experience with experts</li>
+                <li>Skill-based assignments</li>
+                <li>Certification support</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Learning Outcomes</h4>
+            <ul>
+                <li>Practical technical skills</li>
+                <li>Real-world project exposure</li>
+                <li>Problem-solving capability</li>
+                <li>Professional portfolio creation</li>
+                <li>Job-ready training approach</li>
+            </ul>
+        </div>
+
+        <div class="column">
+            <h4>Why Choose Us?</h4>
+            <ul>
+                <li>Clear deliverables</li>
+                <li>Market-aligned pricing</li>
+                <li>Scalable learning plans</li>
+                <li>Professional execution</li>
+                <li>Transparent communication</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endif %}
+{% include 'footer.html' %}
+</body>
+</html>
+ 
+
+
