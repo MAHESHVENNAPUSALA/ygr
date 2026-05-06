@@ -1,212 +1,189 @@
-{% load static %}
-
 <style>
-/* ================= GLOBAL ================= */
-body {
-  overflow-x: hidden;
-}
-
+/* ================= PREMIUM TESTIMONIALS ================= */
 .testimonials-section {
-  padding: 30px 0;
-  background: #f9fafb;
-  font-family: 'Lato', sans-serif;
+    padding: 100px 0;
+    background: #fdfdfd;
+    position: relative;
+    overflow: hidden;
 }
 
-/* ================= SCROLL CONTAINER ================= */
+.testimonials-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #091c47;
+    margin-bottom: 15px;
+}
+
+.testimonials-header p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 50px;
+}
+
+/* Marquee Container */
 .testimonial-marquee {
-  display: flex;
-  overflow: hidden;
-  gap: 20px;
-  width: 100%;
-  padding: 15px 0;
-  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    display: flex;
+    overflow: hidden;
+    gap: 30px;
+    width: 100%;
+    padding: 20px 0;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .testimonial-track {
-  display: flex;
-  gap: 20px;
-  min-width: 100%;
-  flex-shrink: 0;
-  align-items: stretch;
-  animation: marquee 35s linear infinite;
+    display: flex;
+    gap: 30px;
+    animation: marquee 40s linear infinite;
 }
 
 .testimonial-marquee:hover .testimonial-track {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(-100% - 20px)); }
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - 30px)); }
 }
 
-/* ================= CARD ================= */
-.testimonial-card {
-  background: #fff;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  border: 1px solid #f1f5f9;
-
-  width: 350px;
-  flex: 0 0 auto;
-  min-height: 220px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+/* Testimonial Card Premium */
+.testimonial-premium-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.02);
+    width: 400px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-/* CLIENT NAME (ONLY CENTERED) */
-.testimonial-card h6 {
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-weight: 600;
-  color: #0d2b7a;
-  margin-bottom: 12px;
+.testimonial-premium-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 25px 50px rgba(9, 28, 71, 0.08);
 }
 
-/* MESSAGE */
+.quote-icon {
+    font-size: 2.5rem;
+    color: rgba(251, 204, 39, 0.2);
+    position: absolute;
+    top: 30px;
+    right: 40px;
+}
+
+.stars {
+    color: #fbcc27;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
 .testimonial-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #343a40;
-  word-wrap: break-word;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 30px;
+    font-style: italic;
+    flex: 1;
 }
 
-/* COMPANY & COUNTRY */
-.client-info {
-  margin-top: auto;
-  padding-top: 14px;
-  text-align: left;
+.client-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.client-initial {
+    width: 50px;
+    height: 50px;
+    background: #091c47;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.client-info h6 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #091c47;
+    margin-bottom: 2px;
 }
 
 .client-info p {
-  margin: 2px 0;
-  font-size: 0.85rem;
-  color: #0d2b7a;
-  font-weight: 600;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
 }
 
-/* ================= RESPONSIVE ================= */
+/* Responsive */
 @media (max-width: 768px) {
-
-  .testimonials-section {
-    padding: 20px 0;
-    padding: 10px;
-  }
-
-  .container-fluid {
-    padding-left: 12px  ;
-    padding-right: 12px  ;
-  }
-
-  /* Scroll container */
-  .testimonial-marquee {
-    gap: 15px;
-    padding: 10px 0;
-  }
-
-  .testimonial-track {
-    gap: 15px;
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - 15px)); }
-  }
-
-  /* One perfect card per view */
-  .testimonial-card {
-    width: 280px;
-    min-height: auto;
-    padding: 20px;
-  }
-
-  /* Client name */
-  .testimonial-card h6 {
-    font-size: 15px;
-    margin-bottom: 10px;
-  }
-
-  /* Message text */
-  .testimonial-text {
-    font-size: 16px;
-    line-height: 1.6;
-    text-align: left;
-  }
-
-  /* Company & country */
-  .client-info {
-    margin-top: 12px;
-  }
-
- 
-  /* Section heading */
-  .testimonials-section h2 {
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .testimonials-scroll p {
-    font-size: 16px;
-       text-align: left;
-  }
+    .testimonials-header h2 { font-size: 2rem; }
+    .testimonial-premium-card { width: 320px; padding: 30px; }
+    .testimonial-text { font-size: 1rem; }
 }
-
 </style>
 
 <section class="testimonials-section">
-  <div class="container-fluid px-5">
-
-    <div class="text-center mb-5">
-      <h2>What Our Clients Say</h2>
-      <p>Trusted by clients worldwide</p>
-    </div>
-
-    <div class="testimonial-marquee">
-      <div class="testimonial-track">
-        {% for t in testimonials %}
-        <div class="testimonial-card">
-
-          <!-- CLIENT NAME -->
-          <h6>{{ t.client_name }}</h6>
-
-          <!-- MESSAGE -->
-          <p class="testimonial-text">“{{ t.message }}”</p>
-
-          <!-- COMPANY / COUNTRY -->
-          <div class="client-info">
-            <p>{{ t.company_name }}</p>
-            <p>{{ t.country }}</p> 
-          </div>
-
+    <div class="container-fluid">
+        <div class="testimonials-header text-center">
+            <h2>What Our Clients Say</h2>
+            <p>Empowering businesses globally with cutting-edge IT solutions.</p>
         </div>
-        {% endfor %}
-      </div>
-      <!-- Duplicate track for infinite scroll -->
-      <div class="testimonial-track" aria-hidden="true">
-        {% for t in testimonials %}
-        <div class="testimonial-card">
 
-          <!-- CLIENT NAME -->
-          <h6>{{ t.client_name }}</h6>
-
-          <!-- MESSAGE -->
-          <p class="testimonial-text">“{{ t.message }}”</p>
-
-          <!-- COMPANY / COUNTRY -->
-          <div class="client-info">
-            <p>{{ t.company_name }}</p>
-            <p>{{ t.country }}</p> 
-          </div>
-
+        <div class="testimonial-marquee">
+            <div class="testimonial-track">
+                {% for t in testimonials %}
+                <div class="testimonial-premium-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“{{ t.message }}”</p>
+                    <div class="client-meta">
+                        <div class="client-initial">{{ t.client_name|slice:":1" }}</div>
+                        <div class="client-info">
+                            <h6>{{ t.client_name }}</h6>
+                            <p>{{ t.company_name }} | {{ t.country }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Duplicate for loop -->
+            <div class="testimonial-track" aria-hidden="true">
+                {% for t in testimonials %}
+                <div class="testimonial-premium-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“{{ t.message }}”</p>
+                    <div class="client-meta">
+                        <div class="client-initial">{{ t.client_name|slice:":1" }}</div>
+                        <div class="client-info">
+                            <h6>{{ t.client_name }}</h6>
+                            <p>{{ t.company_name }} | {{ t.country }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
-      </div>
     </div>
-
-  </div>
 </section>
+
 

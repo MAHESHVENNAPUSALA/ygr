@@ -1,202 +1,154 @@
 {% load static %}
 <style>
-/* =========================
-   GLOBAL PRESENCE – DESKTOP
-========================= */
+/* ================= PREMIUM GLOBAL PRESENCE ================= */
 .global-presence {
-  background: #f8f9fa;
+    padding: 100px 0;
+    background: #ffffff;
+    position: relative;
 }
 
-/* Country cards */
-.country-card {
-  background: #ffffff;
-  padding: 12px 16px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px; /* space between flag and country name */
-  font-size: 18px;
+.presence-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #091c47;
+    margin-bottom: 15px;
 }
 
-.country-card img.flag-img {
-  width: 32px; /* size of the flag */
-  height: 20px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.country-card p {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-/* Hover effect (desktop only) */
-.country-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-}
-
-/* Map box */
-.map-box {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-/* =========================
-   MOBILE VERSION ONLY
-========================= */
-@media (max-width: 768px) {
-
-  .global-presence .container-fluid {
-    padding-left: 1rem  ;
-    padding-right: 1rem  ;
-  }
-
-  .global-presence h2 {
-    font-size: 20px;
-    line-height: 1.3;
-    text-align: center;
-  }
-
-  .global-presence h4 {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-
-  .global-presence p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    text-align: left;
-  }
-
-  .global-presence .row.mt-4 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin: 10px;
-  }
-
-  .global-presence .row.mt-4 > div {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  .country-card {
-    width: 100%;
-    height: 100%;
-    padding: 12px;
-    font-size: 16px;
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .country-card img.flag-img {
-    width: 28px;
-    height: 18px;
-  }
-
-  .country-card p {
-    font-size: 14px;
-  }
-
-  .country-card:hover {
-    transform: none;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .map-box {
-    padding: 20px;
-    margin-top: 2rem;
-  }
-
-  .map-box h5 {
+.presence-header p {
     font-size: 1.1rem;
-  }
+    color: #64748b;
+    margin-bottom: 60px;
+}
 
-  .map-box p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    text-align: center;
-  }
+.presence-content h4 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #091c47;
+    margin-bottom: 25px;
+}
+
+.presence-content p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Country Badges */
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.country-badge {
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.country-badge:hover {
+    transform: translateX(10px);
+    box-shadow: 0 15px 35px rgba(9, 28, 71, 0.1);
+    border-color: #fbcc27;
+}
+
+.country-badge img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.country-badge span {
+    font-weight: 700;
+    color: #091c47;
+    font-size: 1rem;
+}
+
+/* Map Visual */
+.map-visual-container {
+    position: relative;
+    padding: 20px;
+}
+
+.map-visual-container img {
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+}
+
+.map-visual-container:hover img {
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .presence-header h2 { font-size: 2.5rem; }
+    .countries-grid { margin-bottom: 50px; }
+}
+
+@media (max-width: 768px) {
+    .global-presence { padding: 60px 0; }
+    .presence-header h2 { font-size: 2rem; }
+    .countries-grid { grid-template-columns: 1fr; }
 }
 </style>
 
-<section class="global-presence py-5">
-  <div class="container-fluid px-5">
-    <!-- SECTION HEADER -->
-    <div class="text-center mb-5">
-      <h2 class="fw-bold">Serving Clients Across the Global</h2>
-      <p class="text-muted mt-2">
-        No matter where you are, YGR Gobal IT Services is ready to support your
-        business.
-      </p>
+<section class="global-presence">
+    <div class="container-fluid px-lg-5 px-3">
+        <div class="presence-header text-center">
+            <h2>Serving Clients Globally</h2>
+            <p>From local startups to global enterprises, we bridge the gap with technology.</p>
+        </div>
+
+        <div class="row align-items-center">
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-6 presence-content">
+                <h4>Trusted Worldwide</h4>
+                <p>
+                    Our global delivery model ensures seamless execution and world-class 
+                    support across different time zones. We bring localized expertise to 
+                    a global stage.
+                </p>
+                
+                <div class="countries-grid">
+                    <div class="country-badge">
+                        <img src="https://flagcdn.com/us.svg" alt="USA">
+                        <span>United States</span>
+                    </div>
+                    <div class="country-badge">
+                        <img src="https://flagcdn.com/gb.svg" alt="UK">
+                        <span>United Kingdom</span>
+                    </div>
+                    <div class="country-badge">
+                        <img src="https://flagcdn.com/ca.svg" alt="Canada">
+                        <span>Canada</span>
+                    </div>
+                    <div class="country-badge">
+                        <img src="https://flagcdn.com/in.svg" alt="India">
+                        <span>India</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT VISUAL -->
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="map-visual-container text-center">
+                    <img src="{% static 'images/golbal-img.jpeg' %}" alt="Global Presence" class="img-fluid">
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- CONTENT -->
-    <div class="row align-items-center">
-      <!-- LEFT CONTENT -->
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <h4 class="fw-bold mb-3">Trusted Worldwide</h4>
-
-        <p class="text-muted">
-          We proudly serve clients across multiple countries, delivering
-          world-class IT solutions tailored to regional and global business
-          needs.
-        </p>
-
-        <p class="text-muted">
-          Our global delivery model ensures seamless communication, timely
-          execution, and continuous support regardless of time zone.
-        </p>
-
-        <!-- COUNTRIES -->
-        <div class="row mt-4">
-          <div class="col-6 col-md-3 text-center">
-            <div class="country-card">
-              <img class="flag-img" src="https://flagcdn.com/us.svg" alt="USA Flag">
-              <p>USA</p>
-            </div>
-          </div>
-          <div class="col-6 col-md-3 text-center">
-            <div class="country-card">
-              <img class="flag-img" src="https://flagcdn.com/gb.svg" alt="UK Flag">
-              <p>UK</p>
-            </div>
-          </div>
-          <div class="col-6 col-md-3 text-center">
-            <div class="country-card">
-              <img class="flag-img" src="https://flagcdn.com/ca.svg" alt="Canada Flag">
-              <p>Canada</p>
-            </div>
-          </div>
-          <div class="col-6 col-md-3 text-center">
-            <div class="country-card">
-              <img class="flag-img" src="https://flagcdn.com/in.svg" alt="India Flag">
-              <p>India</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT MAP / VISUAL -->
-      <div class="col-lg-6 text-center">
-        
-          
-<img src="{% static 'images/golbal-img.jpeg' %}" 
-     alt="internship" 
-     class="img-fluid">
-        </div>
+</section>
    
-    </div>
-  </div>
-</section>   

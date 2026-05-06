@@ -12,433 +12,264 @@
   rel="stylesheet">
 
 <!-- FONT AWESOME (already in your project — keep your existing link) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /><style>
   /* ===================================================
    VARIABLES
-=================================================== */
+  =================================================== */
   :root {
-    --its-bg: #f0f4f8;
+    --its-bg: #f8fafc;
     --its-white: #ffffff;
-    --its-navy: #0a1e3c;
-    --its-navy-hover: #0f2a50;
-    --its-blue-dark: #0C447C;
-    --its-blue-mid: #185FA5;
-    --its-blue-light: #E6F1FB;
-    --its-blue-border: #85B7EB;
-    --its-teal-bg: #E1F5EE;
-    --its-teal-icon: #0F6E56;
-    --its-purple-bg: #EEEDFE;
-    --its-purple-icon: #534AB7;
-    --its-amber-bg: #FAEEDA;
-    --its-amber-icon: #854F0B;
-    --its-text-dark: #0a1e3c;
-    --its-text-mid: #3d5166;
-    --its-text-muted: #6b7e92;
-    --its-text-hint: #9aadbd;
-    --its-border: #e0e8f0;
-    --its-card-sel-bg: #f4f8fd;
-    --its-radius-card: 18px;
-    --its-radius-pill: 99px;
-    --its-radius-icon: 12px;
+    --its-navy: #091c47;
+    --its-accent: #fbcc27;
+    --its-blue-dark: #091c47;
+    --its-blue-mid: #1d4ed8;
+    --its-blue-light: #eff6ff;
+    --its-text-dark: #0f172a;
+    --its-text-muted: #64748b;
+    --its-radius-card: 24px;
     --its-font: 'Plus Jakarta Sans', sans-serif;
   }
 
-  /* ===================================================
-   SECTION WRAPPER
-=================================================== */
+  /* ================= PREMIUM SECTION ================= */
   .its-section {
     font-family: var(--its-font);
     background: var(--its-bg);
-    padding: 64px 48px 72px;
+    padding: 100px 5%;
+    position: relative;
   }
 
-  /* ===================================================
-   HEADER BLOCK
-=================================================== */
   .its-header {
-    margin-bottom: 44px;
+    margin-bottom: 60px;
+    text-align: center;
   }
 
   .its-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--its-blue-light);
-    border-radius: var(--its-radius-pill);
-    padding: 5px 14px 5px 10px;
-    margin-bottom: 16px;
-  }
-
-  .its-eyebrow-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--its-blue-mid);
-    flex-shrink: 0;
-  }
-
-  .its-eyebrow-txt {
-    font-size: 11px;
+    background: rgba(251, 204, 39, 0.1);
+    color: #b48a04;
+    padding: 8px 20px;
+    border-radius: 50px;
     font-weight: 700;
-    color: var(--its-blue-dark);
-    letter-spacing: .07em;
     text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-bottom: 20px;
   }
 
   .its-header h2 {
-    font-size: 32px;
+    font-size: 3.5rem;
     font-weight: 800;
-    color: var(--its-text-dark);
-    letter-spacing: -0.025em;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    color: var(--its-navy);
+    line-height: 1.1;
+    margin-bottom: 20px;
   }
 
   .its-header p {
-    font-size: 15px;
+    font-size: 1.1rem;
     color: var(--its-text-muted);
-    line-height: 1.65;
-    max-width: 500px;
-    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
-  /* ===================================================
-   FILTER TABS
-=================================================== */
+  /* Filter Tabs Premium */
   .its-tabs {
     display: flex;
-    gap: 6px;
-    margin-bottom: 32px;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
     flex-wrap: wrap;
   }
 
   .its-tab {
-    font-family: var(--its-font);
-    font-size: 13px;
-    font-weight: 500;
-    padding: 7px 18px;
-    border-radius: var(--its-radius-pill);
-    border: 1.5px solid var(--its-border);
-    background: var(--its-white);
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: 1px solid rgba(0,0,0,0.05);
+    background: #fff;
     color: var(--its-text-muted);
+    font-weight: 600;
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all .18s ease;
-    user-select: none;
-    outline: none;
   }
 
   .its-tab:hover {
-    border-color: var(--its-blue-border);
-    color: var(--its-text-dark);
+    background: #f1f5f9;
+    color: var(--its-navy);
   }
 
   .its-tab.active {
-    background: var(--its-blue-dark);
-    color: var(--its-blue-light);
-    border-color: var(--its-blue-dark);
+    background: var(--its-navy);
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(9, 28, 71, 0.2);
   }
 
-  /* ===================================================
-   CARDS GRID
-=================================================== */
+  /* Cards Grid Premium */
   .its-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
   }
 
-  /* ===================================================
-   SINGLE CARD
-=================================================== */
   .its-card {
-    background: var(--its-white);
-    border: 1.5px solid var(--its-border);
+    background: #fff;
     border-radius: var(--its-radius-card);
-    padding: 28px 22px 24px;
+    padding: 40px 30px;
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none !important;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: border-color .22s ease, transform .22s ease, box-shadow .22s ease;
-    text-decoration: none;
   }
 
-  .its-card:hover {
-    border-color: var(--its-blue-border);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(24, 95, 165, 0.12);
-    text-decoration: none;
-  }
-
-  .its-card.selected {
-    border-color: var(--its-blue-mid);
-    background: var(--its-card-sel-bg);
-  }
-
-  .its-card.selected:hover {
-    border-color: var(--its-blue-dark);
-  }
-
-  /* Top accent line on selected */
-  .its-card.selected::before {
+  .its-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--its-blue-mid);
-    border-radius: var(--its-radius-card) var(--its-radius-card) 0 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(251, 204, 39, 0.05) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
-  /* ===================================================
-   CARD INNER PARTS
-=================================================== */
-
-  /* Number badge */
-  .its-card-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--its-blue-mid);
-    letter-spacing: .08em;
-    background: var(--its-blue-light);
-    border-radius: var(--its-radius-pill);
-    padding: 3px 10px;
-    margin-bottom: 16px;
-    display: inline-block;
+  .its-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 30px 60px rgba(9, 28, 71, 0.08);
+    border-color: rgba(251, 204, 39, 0.2);
   }
 
-  /* Category tag */
-  .its-card-tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: var(--its-blue-mid);
-    background: var(--its-blue-light);
-    border-radius: var(--its-radius-pill);
-    padding: 3px 10px;
-    display: inline-block;
-    margin-bottom: 16px;
-    width: fit-content;
+  .its-card:hover::before {
+    opacity: 1;
   }
 
-  /* Icon wrapper */
   .its-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--its-radius-icon);
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    margin-bottom: 18px;
-    transition: background .22s;
+    font-size: 24px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
   }
 
-  .its-icon.blue {
-    background: var(--its-blue-light);
-    color: var(--its-blue-mid);
+  .its-icon.blue { background: #eff6ff; color: #1d4ed8; }
+  .its-icon.teal { background: #f0fdf4; color: #10b981; }
+  .its-icon.purple { background: #f5f3ff; color: #7c3aed; }
+  .its-icon.amber { background: #fffbeb; color: #f59e0b; }
+
+  .its-card:hover .its-icon {
+    transform: scale(1.1) rotate(-5deg);
   }
 
-  .its-icon.teal {
-    background: var(--its-teal-bg);
-    color: var(--its-teal-icon);
-  }
-
-  .its-icon.purple {
-    background: var(--its-purple-bg);
-    color: var(--its-purple-icon);
-  }
-
-  .its-icon.amber {
-    background: var(--its-amber-bg);
-    color: var(--its-amber-icon);
-  }
-
-  /* Title */
   .its-card-title {
-    font-size: 14.5px;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: var(--its-text-dark);
-    margin-bottom: 8px;
-    line-height: 1.3;
+    color: var(--its-navy);
+    margin-bottom: 15px;
   }
 
-  /* Description */
   .its-card-desc {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--its-text-muted);
-    line-height: 1.65;
+    line-height: 1.6;
+    margin-bottom: 25px;
     flex: 1;
-    margin-bottom: 20px;
   }
 
-  /* Card footer */
   .its-card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid var(--its-border);
-    width: 100%;
-    margin-top: auto;
-  }
-
-  .its-card.selected .its-card-footer {
-    border-color: #B5D4F4;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
   }
 
   .its-card-stat {
-    font-size: 11px;
-    color: var(--its-text-hint);
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
   }
 
   .its-card-stat span {
-    font-weight: 600;
-    color: var(--its-text-mid);
+    color: var(--its-navy);
+    font-weight: 700;
   }
 
-  /* Arrow button */
   .its-arrow {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    border: 1.5px solid var(--its-border);
-    background: transparent;
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background .18s, border-color .18s;
-    text-decoration: none;
-    flex-shrink: 0;
-    color: var(--its-text-muted);
-    font-size: 12px;
+    color: var(--its-navy);
+    transition: all 0.3s ease;
   }
 
-  .its-arrow:hover,
-  .its-card.selected .its-arrow {
-    background: var(--its-blue-dark);
-    border-color: var(--its-blue-dark);
-    color: var(--its-blue-light);
-    text-decoration: none;
+  .its-card:hover .its-arrow {
+    background: var(--its-accent);
+    transform: translateX(5px);
   }
 
-  /* ===================================================
-   CTA ROW
-=================================================== */
+  /* CTA Row Premium */
   .its-cta-row {
+    margin-top: 80px;
+    background: var(--its-navy);
+    padding: 50px;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 40px;
-    padding: 24px 28px;
-    background: var(--its-white);
-    border: 1.5px solid var(--its-border);
-    border-radius: var(--its-radius-card);
-    gap: 20px;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(9, 28, 71, 0.3);
   }
 
-  .its-cta-label p:first-child {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--its-text-dark);
-    margin-bottom: 4px;
+  .its-cta-label h4 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
   }
 
-  .its-cta-label p:last-child {
-    font-size: 13px;
-    color: var(--its-text-muted);
+  .its-cta-label p {
+    font-size: 1.1rem;
+    opacity: 0.8;
     margin: 0;
   }
 
   .its-cta-btn {
-    font-family: var(--its-font);
-    font-size: 13px;
+    padding: 18px 40px;
+    background: var(--its-accent);
+    color: var(--its-navy);
+    border-radius: 50px;
     font-weight: 700;
-    background: var(--its-blue-dark);
-    color: var(--its-blue-light);
-    border: none;
-    border-radius: var(--its-radius-pill);
-    padding: 12px 28px;
-    cursor: pointer;
-    white-space: nowrap;
-    letter-spacing: .01em;
-    transition: background .18s;
     text-decoration: none;
-    display: inline-block;
+    transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
   .its-cta-btn:hover {
-    background: var(--its-blue-mid);
-    color: var(--its-blue-light);
-    text-decoration: none;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(251, 204, 39, 0.4);
+    background: #fff;
   }
 
-  /* ===================================================
-   RESPONSIVE
-=================================================== */
+  /* Responsive */
   @media (max-width: 1200px) {
-    .its-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .its-grid { grid-template-columns: repeat(3, 1fr); }
   }
-
-  @media (max-width: 900px) {
-    .its-section {
-      padding: 48px 24px 56px;
-    }
-
-    .its-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  @media (max-width: 991px) {
+    .its-header h2 { font-size: 2.5rem; }
+    .its-grid { grid-template-columns: repeat(2, 1fr); }
+    .its-cta-row { flex-direction: column; text-align: center; gap: 30px; }
   }
-
-  @media (max-width: 600px) {
-    .its-section {
-      padding: 36px 16px 48px;
-    }
-
-    .its-header h2 {
-      font-size: 22px;
-    }
-
-    .its-header p {
-      font-size: 14px;
-    }
-
-    .its-grid {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      gap: 14px;
-      padding-bottom: 16px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .its-grid::-webkit-scrollbar {
-      display: none;
-    }
-
-    .its-card {
-      flex: 0 0 82%;
-      scroll-snap-align: start;
-    }
-
-    .its-cta-row {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .its-cta-btn {
-      width: 100%;
-      text-align: center;
-    }
+  @media (max-width: 768px) {
+    .its-grid { grid-template-columns: 1fr; }
+    .its-header h2 { font-size: 2rem; }
   }
 </style>
 

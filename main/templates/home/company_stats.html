@@ -1,156 +1,149 @@
 <style>
-  .company-stats {
-    background: linear-gradient(135deg, #091c47, #0d2b7a);
+/* ================= PREMIUM COMPANY STATS ================= */
+.company-stats {
+    background: #091c47;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.company-stats::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(251, 204, 39, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(251, 204, 39, 0.05) 0%, transparent 50%);
+}
+
+.stats-header h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
     color: #ffffff;
-  }
+    margin-bottom: 15px;
+}
 
-  .stat-card {
-    background: rgba(255, 255, 255, 0.12);
-    padding: 35px 20px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-  }
+.stats-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 60px;
+}
 
-  .stat-card:hover {
-    transform: translateY(-6px);
-    background: rgba(255, 255, 255, 0.2);
-  }
+.stat-glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px 30px;
+    border-radius: 30px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
 
-  .stat-number {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: #ffffff;
-  }
+.stat-glass-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-10px);
+    border-color: rgba(251, 204, 39, 0.3);
+}
 
-  .stat-label {
-    font-size: 16px;
-    opacity: 0.9;
-  }
+.stat-value {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #fbcc27;
+    margin-bottom: 10px;
+    display: block;
+}
 
-  @media (max-width: 768px) {
-    .company-stats .container-fluid {
-      padding-left: 12px;
-      padding-right: 12px;
-    }
+.stat-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-    .company-stats .col-md-6,
-    .company-stats .col-lg-3 {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
+/* Responsive */
+@media (max-width: 991px) {
+    .stats-header h2 { font-size: 2.5rem; }
+    .stat-value { font-size: 2.8rem; }
+}
 
-    .stat-card {
-      padding: 20px 10px;
-      border-radius: 14px;
-    }
-
-    .stat-number {
-      font-size: 28px;
-      margin-bottom: 2px;
-    }
-
-    .stat-label {
-      font-size: 13px;
-    }
-
-    .company-stats h2 {
-      font-size: 1.6rem;
-    }
-
-    .company-stats p {
-      font-size: 0.95rem;
-    }
-  }
+@media (max-width: 768px) {
+    .company-stats { padding: 60px 0; }
+    .stats-header h2 { font-size: 2rem; }
+    .stat-glass-card { padding: 30px 20px; }
+}
 </style>
 
-<section class="company-stats py-5">
-  <div class="container-fluid px-5">
+<section class="company-stats">
+    <div class="container-fluid px-lg-5 px-3">
+        <div class="stats-header text-center">
+            <h2>Our Global Impact</h2>
+            <p>Real numbers that reflect our commitment to excellence and growth.</p>
+        </div>
 
-    <!-- HEADER -->
-    <div class="text-center mb-5">
-      <h2 class="fw-bold" style="color: #fff">Our Growth in Numbers</h2>
-      <p class="mt-2" style="color: #fff">
-        Numbers that reflect our experience, trust, and success.
-      </p>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-glass-card">
+                    <span class="stat-value counter" data-count="97">0</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-glass-card">
+                    <span class="stat-value counter" data-count="98">0</span>
+                    <span class="stat-label">Projects Done</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-glass-card">
+                    <span class="stat-value counter" data-count="5">0</span>
+                    <span class="stat-label">Years Exp</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-glass-card">
+                    <span class="stat-value counter" data-count="4">0</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- STATS -->
-    <div class="row g-4 text-center">
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-card">
-          <h2 class="stat-number" data-count="97">0</h2>
-          <p class="stat-label">Happy Clients</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-card">
-          <h2 class="stat-number" data-count="98">0</h2>
-          <p class="stat-label">Projects Completed</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-card">
-          <h2 class="stat-number" data-count="5">0</h2>
-          <p class="stat-label">Years of Experience</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-card">
-          <h2 class="stat-number" data-count="4">0</h2>
-          <p class="stat-label">Countries Served</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </section>
 
-<!-- ✅ COUNTER SCRIPT -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
+    const statCounters = document.querySelectorAll('.stat-value');
+    
+    const startStatCount = (counter) => {
+        const target = +counter.getAttribute('data-count');
+        let count = 0;
+        const duration = 2000;
+        const increment = target / (duration / 16);
 
-  const counters = document.querySelectorAll('.stat-number');
-  let started = false;
+        const updateCount = () => {
+            count += increment;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.innerText = target + "+";
+            }
+        };
+        updateCount();
+    };
 
-  function startCounter() {
-    counters.forEach(counter => {
+    const statObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startStatCount(entry.target);
+                statObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
 
-      const target = +counter.getAttribute('data-count');
-      let count = 0;
-
-      const duration = 1200; // animation speed
-      const increment = target / (duration / 16);
-
-      function updateCount() {
-        count += increment;
-
-        if (count < target) {
-          counter.innerText = Math.floor(count);
-          requestAnimationFrame(updateCount);
-        } else {
-          counter.innerText = target >= 5 ? target + "+" : target;
-        }
-      }
-
-      updateCount();
-    });
-  }
-
-  window.addEventListener('scroll', () => {
-    const section = document.querySelector('.company-stats');
-    const sectionTop = section.getBoundingClientRect().top;
-    const screenHeight = window.innerHeight;
-
-    if (sectionTop < screenHeight - 100 && !started) {
-      startCounter();
-      started = true;
-    }
-  });
-
+    statCounters.forEach(counter => statObserver.observe(counter));
 });
-</script>
+</script>

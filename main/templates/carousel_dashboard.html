@@ -8,12 +8,13 @@
 
 <style>
   /* Container styling */
-.dashboard-container {
+  .dashboard-container {
     background: #ffffff;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 25px 45px rgba(0,0,0,0.08);
-}
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.08);
+  }
+
   /* Header section */
   .dashboard-header {
     display: flex;
@@ -55,14 +56,15 @@
     border-radius: 8px;
     overflow: hidden;
     font-size: 0.95rem;
-   }
+  }
 
   thead {
     background-color: #092a49;
     color: white;
   }
 
-  th, td {
+  th,
+  td {
     text-align: left;
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
@@ -124,7 +126,13 @@
 
   /* Responsive: stack table rows vertically on narrow screens */
   @media (max-width: 720px) {
-    table, thead, tbody, th, td, tr {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
       display: block;
     }
 
@@ -205,7 +213,9 @@
         <td data-label="Actions">
           <div class="actions">
             <a href="{% url 'carousel_edit' c.id %}" class="btn-edit">Edit</a>
-            <form method="post" action="{% url 'carousel_delete' c.id %}" onsubmit="return confirm('Are you sure you want to delete this carousel image?');" style="display:inline;">
+            <form method="post" action="{% url 'carousel_delete' c.id %}"
+              onsubmit="return confirm('Are you sure you want to delete this carousel image?');"
+              style="display:inline;">
               {% csrf_token %}
               <button type="submit" class="btn-delete">Delete</button>
             </form>
